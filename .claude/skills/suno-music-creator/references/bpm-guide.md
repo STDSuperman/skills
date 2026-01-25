@@ -1,77 +1,77 @@
-# BPM Guide by Usage Context
+# 按使用场景的 BPM 指南
 
-## Sport & Fitness
+## 运动与健身
 
-| Activity | BPM | Notes |
+| 活动 | BPM | 说明 |
 |----------|-----|-------|
-| Yoga / Stretching | 60-90 | Ambient, natural sounds, gentle melodies |
-| Meditation | 50-70 | Drones, evolving pads, no percussion |
-| Warm-up | 100-120 | Progressive build, moderate rhythm |
-| Walking | 115-125 | Steady rhythm to sync footsteps |
-| Running (endurance) | 120-140 | Match to stride cadence |
-| Running (tempo) | 140-160 | Speed sessions |
-| Weightlifting | 130-150 | Sustained energy, not too fast |
-| CrossFit | 130-160 | Vary by WOD intensity |
-| Tabata | 140-150 | 20s effort / 10s rest structure |
-| HIIT | 150-170+ | Alternate intense (150-170) and recovery (115-120) |
-| Sprint / Intervals | 160-180 | Maximum intensity bursts |
-| Cycling / Spinning | 130-170 | Vary by phase (climb, sprint, recovery) |
-| Dance / Zumba | 130-170 | Latin rhythms, energetic pop |
-| Boxing / Martial Arts | 130-150 | Steady for combo work |
-| Cool-down | 65-90 | Progressive decrease |
+| 瑜伽 / 拉伸 | 60-90 | 环境感、自然音、柔和旋律 |
+| 冥想 | 50-70 | Drone、持续 Pad、无打击乐 |
+| 热身 | 100-120 | 逐步提升、适中节奏 |
+| 步行 | 115-125 | 稳定节奏匹配步频 |
+| 跑步（耐力） | 120-140 | 匹配步幅节奏 |
+| 跑步（速度） | 140-160 | 速度训练 |
+| 力量训练 | 130-150 | 稳定能量，不要太快 |
+| CrossFit | 130-160 | 按 WOD 强度变化 |
+| Tabata | 140-150 | 20 秒冲刺 / 10 秒休息结构 |
+| HIIT | 150-170+ | 交替高强度（150-170）与恢复（115-120） |
+| 冲刺 / 间歇 | 160-180 | 极限强度短冲刺 |
+| 骑行 / 动感单车 | 130-170 | 按阶段变化（爬坡、冲刺、恢复） |
+| 舞蹈 / 尊巴 | 130-170 | 拉丁节奏、充满活力 |
+| 拳击 / 武术 | 130-150 | 稳定用于组合训练 |
+| 放松 | 65-90 | 逐步降低 |
 
-## Work & Productivity
+## 工作与效率
 
-| Context | BPM | Notes |
+| 场景 | BPM | 说明 |
 |---------|-----|-------|
-| Deep focus | 60-80 | Minimal, ambient, no lyrics |
-| Light work | 80-100 | Lo-fi, jazz, gentle electronic |
-| Creative brainstorming | 100-120 | Upbeat but not distracting |
-| Repetitive tasks | 110-130 | Steady rhythm, can be more energetic |
-| Coding / Technical | 70-90 | Ambient, instrumental electronic |
+| 深度专注 | 60-80 | 低干扰、氛围、无歌词 |
+| 轻量工作 | 80-100 | Lo-fi、爵士、柔和电子 |
+| 创意发散 | 100-120 | 轻快但不干扰 |
+| 重复性任务 | 110-130 | 稳定节奏，可略高能 |
+| 编程 / 技术工作 | 70-90 | 氛围化、器乐电子 |
 
-## Events & Venues
+## 活动与场地
 
-| Context | BPM | Notes |
+| 场景 | BPM | 说明 |
 |---------|-----|-------|
-| Cocktail reception | 90-110 | Jazz, lounge, sophisticated |
-| Dinner ambiance | 70-95 | Soft, elegant, unobtrusive |
-| Corporate event | 100-120 | Professional, uplifting |
-| Product launch | 110-130 | Energetic, modern, inspiring |
-| Fashion show | 115-130 | Trendy, stylish, rhythmic |
-| Art gallery | 60-80 | Ambient, atmospheric |
-| Retail store | 100-120 | Pleasant, encouraging movement |
-| Spa / Wellness | 50-70 | Ultra-relaxing, nature sounds |
+| 酒会接待 | 90-110 | 爵士、轻 lounge、精致 |
+| 晚餐氛围 | 70-95 | 柔和、优雅、低存在感 |
+| 企业活动 | 100-120 | 专业、向上 | 
+| 产品发布 | 110-130 | 现代、激励 | 
+| 时装秀 | 115-130 | 时尚、律动 | 
+| 艺术展 | 60-80 | 氛围化、空间感 | 
+| 零售店 | 100-120 | 轻快、带动行走 | 
+| 水疗 / 健康 | 50-70 | 超放松、自然音 | 
 
-## Entertainment & Media
+## 娱乐与媒体
 
-| Context | BPM | Notes |
+| 场景 | BPM | 说明 |
 |---------|-----|-------|
-| Podcast intro | 100-120 | Short, memorable, energetic |
-| YouTube intro | 110-140 | Catchy, dynamic, genre-appropriate |
-| Video game menu | 80-100 | Atmospheric, loopable |
-| Video game action | 130-160 | Intense, driving |
-| Film tension | 80-110 | Building, suspenseful |
-| Film action | 120-150 | Dynamic, powerful |
-| Film romance | 60-80 | Tender, emotional |
-| Advertisement | 110-130 | Energetic, memorable |
+| 播客片头 | 100-120 | 短、小记忆点、轻快 |
+| YouTube 片头 | 110-140 | 抓耳、动感、匹配风格 |
+| 游戏菜单 | 80-100 | 氛围、可循环 |
+| 游戏战斗 | 130-160 | 强烈、推进 | 
+| 电影悬疑 | 80-110 | 紧张、铺垫 | 
+| 电影动作 | 120-150 | 动感、强力 | 
+| 电影爱情 | 60-80 | 温柔、情感 | 
+| 广告 | 110-130 | 记忆点强、有力 | 
 
-## Emotional Targets
+## 情绪目标
 
-| Emotion | BPM Range | Characteristics |
+| 情绪 | BPM 范围 | 特征 |
 |---------|-----------|-----------------|
-| Peaceful / Calm | 50-70 | Slow, ambient, minimal |
-| Melancholic / Sad | 60-80 | Minor key, sparse |
-| Romantic / Tender | 60-85 | Soft, emotional |
-| Hopeful / Uplifting | 100-120 | Major key, building |
-| Happy / Joyful | 110-130 | Bright, bouncy |
-| Energetic / Excited | 130-150 | Driving, powerful |
-| Aggressive / Intense | 140-180 | Heavy, relentless |
-| Epic / Triumphant | 90-120 | Orchestral, building |
+| 平和 / 宁静 | 50-70 | 慢、氛围、极简 |
+| 忧郁 / 悲伤 | 60-80 | 小调、稀疏 |
+| 浪漫 / 温柔 | 60-85 | 柔和、情感 | 
+| 希望 / 鼓舞 | 100-120 | 大调、递进 | 
+| 开心 / 喜悦 | 110-130 | 明亮、弹性 | 
+| 活力 / 兴奋 | 130-150 | 推进、有力 | 
+| 强硬 / 激烈 | 140-180 | 厚重、猛烈 | 
+| 史诗 / 凯旋 | 90-120 | 管弦、递进 | 
 
-## Playlist Energy Curves
+## 歌单能量曲线
 
-### Workout Session (30 min)
+### 训练场景（30 分钟）
 ```
 1. Warm-up (5 min): 110-120 BPM
 2. Build (3 min): 130-140 BPM
@@ -81,7 +81,7 @@
 6. Cool-down (4 min): 90-100 → 70 BPM
 ```
 
-### Running Session (45 min)
+### 跑步场景（45 分钟）
 ```
 1. Warm-up (5 min): 110-120 BPM
 2. Cruise (15 min): 130-140 BPM
@@ -90,7 +90,7 @@
 5. Cool-down (5 min): 100-80 BPM
 ```
 
-### Focus Session (2 hours)
+### 专注场景（2 小时）
 ```
 1-4. Start (30 min): 70-80 BPM lo-fi
 5-8. Deep work (30 min): 60-70 BPM ambient
@@ -98,16 +98,16 @@
 13-16. Sustain (30 min): 75-85 BPM jazz lo-fi
 ```
 
-### Event Progression (3 hours)
+### 活动进程（3 小时）
 ```
 Hour 1 (Arrival): 90-100 BPM - Welcoming, sophisticated
 Hour 2 (Main): 100-115 BPM - Engaging, uplifting
 Hour 3 (Peak): 115-125 BPM - Energetic, memorable
 ```
 
-## BPM Verification
+## BPM 校验
 
-Suno generally respects specified BPM (±5 BPM variance). For critical timing:
-- Verify with external tools (songbpm.com, mybpmfinder.com)
-- Specify exact BPM in prompt: "145 BPM" not "fast"
-- Regenerate if BPM is significantly off
+Suno 通常会遵循指定 BPM（±5 BPM 波动）。对时长要求严格的场景：
+- 用外部工具验证（songbpm.com、mybpmfinder.com）
+- 在提示词中写明准确 BPM："145 BPM" 而不是 "fast"
+- 若偏差明显则重新生成

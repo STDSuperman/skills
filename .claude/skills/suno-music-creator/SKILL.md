@@ -1,6 +1,6 @@
 ---
 name: suno-music-creator
-description: Professional music creation with Suno AI V5 and Suno Studio. Use this skill when users want to create songs, playlists, corporate anthems, jingles, workout music, ambient soundscapes, or any AI-generated music. Triggers on requests mentioning Suno, music creation, playlist generation, song composition, or specific music projects like "create a track", "make a playlist", "compose music for", "corporate anthem", "workout mix", or any music production task.
+description: 使用 Suno AI V5 与 Suno Studio 的专业音乐创作流程。当用户想创作歌曲、歌单、企业 anthem、jingle、健身音乐、氛围音景或任何 AI 生成音乐时使用此 skill。触发条件包括提到 Suno、音乐创作、歌单生成、歌曲创作，或诸如“create a track”“make a playlist”“compose music for”“corporate anthem”“workout mix”等具体音乐项目需求。
 license: MIT
 metadata:
   author: Schwepps
@@ -9,192 +9,172 @@ metadata:
   tags: music, suno, ai-music, music-creation, song-creation, audio-generation
 ---
 
-# Suno Music Creator
+# Suno 音乐创作
 
-Professional workflow for creating high-quality music with Suno AI V5 and Suno Studio.
+使用 Suno AI V5 与 Suno Studio 创作高质量音乐的专业流程。
 
-## Quick Reference
+## 快速索引
 
-| Topic | Reference File |
+| 主题 | 参考文件 |
 |-------|----------------|
-| Style prompts by genre | [references/style-library.md](references/style-library.md) |
-| BPM guide by usage | [references/bpm-guide.md](references/bpm-guide.md) |
-| Structure & meta-tags | [references/metatags.md](references/metatags.md) |
-| Project templates | [references/project-types.md](references/project-types.md) |
-| Distribution & rights | [references/distribution.md](references/distribution.md) |
+| 按风格的提示词 | [references/style-library.md](references/style-library.md) |
+| 按使用场景的 BPM 指南 | [references/bpm-guide.md](references/bpm-guide.md) |
+| 结构与元标签 | [references/metatags.md](references/metatags.md) |
+| 项目模板 | [references/project-types.md](references/project-types.md) |
 
-## Plan Availability
+## 核心流程
 
-| Feature | Pro ($10/mo) | Premier ($30/mo) |
-|---------|--------------|------------------|
-| V5 Model | ✅ | ✅ |
-| Commercial rights | ✅ | ✅ |
-| Suno Studio (DAW) | ❌ | ✅ |
-| Credits/month | 2,500 | 10,000 |
+### 1. 项目设定
 
-## Core Workflow
+需求收集：
+- **类型**：单曲 / 歌单 / 专辑
+- **用途**：个人 / 客户 / 商业发行
+- **风格**：流派、情绪、能量水平
+- **声线**：男声 / 女声 / 混合 / 纯器乐
+- **语言**：歌词目标语言
+- **时长**：单曲长度或歌单总时长（每次生成最多 8 分钟）
+- **限制**：内容限制、品牌规范
 
-### 1. Project Setup
+### 2. 提示词构建
 
-Gather requirements:
-- **Type**: Single track / Playlist / Album
-- **Purpose**: Personal / Client / Commercial distribution
-- **Style**: Genre(s), mood, energy level
-- **Voice**: Male / Female / Mix / Instrumental
-- **Language**: Target language for lyrics
-- **Duration**: Track length or playlist total time (up to 8 min per generation)
-- **Constraints**: Content restrictions, brand guidelines
-
-### 2. Prompt Construction
-
-**Style prompt formula:**
+**风格提示词公式：**
 ```
 [Genre], [BPM] BPM, [Mood], [Key instruments], [Vocal type], [Production style]
 ```
 
-**Negative prompting (V5):** Add exclusions directly:
+**负向提示（V5）：** 直接写出排除项：
 ```
 Upbeat pop, 120 BPM, no guitars, no harsh distortion, clean mix
 ```
 
-**Lyrics structure:** Place meta-tags in lyrics field (more effective than style prompt):
+**歌词结构：** 在歌词栏放置元标签（比风格提示更有效）：
 ```
 [Section Tag]
 [Mood/Energy instruction]
 Lyrics content (6-12 syllables per line for best alignment)
 ```
 
-Consult [references/style-library.md](references/style-library.md) for tested prompts by genre.
-Consult [references/metatags.md](references/metatags.md) for structure tags and vocal controls.
+按流派的测试提示词参见 [references/style-library.md](references/style-library.md)。
+结构标签与人声控制参见 [references/metatags.md](references/metatags.md)。
 
-### 3. Generation Process
+### 3. 生成流程
 
-1. Generate 2-4 versions per track (V5 is 10x faster)
-2. Select best output based on:
-   - BPM accuracy (verify with external tool if critical)
-   - Vocal clarity and emotion (V5 has authentic vocal tone)
-   - Mix quality and instrument separation
-   - Adherence to prompt
-3. Apply post-processing:
-   - **Extend**: Add sections, fix abrupt endings (use callbacks: "continue with same vibe")
-   - **Remaster**: Subtle (uniform quality) / Medium / Wide (more variation)
-   - **Crop**: Remove unwanted intro/outro
-   - **Cover**: Change style or voice
-   - **Replace Section**: Regenerate specific parts (Studio)
+1. 每首生成 2-4 个版本（V5 速度提升约 10 倍）
+2. 根据以下标准挑选最佳版本：
+   - BPM 准确度（关键场景可用外部工具验证）
+   - 人声清晰度与情绪表现（V5 人声更自然）
+   - 混音质量与乐器分离度
+   - 与提示词的匹配度
+3. 后期处理：
+   - **Extend**：补充段落、修复突兀结尾（用回调："continue with same vibe"）
+   - **Remaster**：Subtle（均匀）/ Medium / Wide（更有变化）
+   - **Crop**：去除不需要的前奏/尾奏
+   - **Cover**：切换风格或声线
+   - **Replace Section**：重生成特定片段（Studio）
 
-### 4. Quality Checklist
+### 4. 质量检查清单
 
-- [ ] BPM matches target (±5 BPM acceptable)
-- [ ] Vocals clear and expressive
-- [ ] No audio artifacts (V5 has better frequency separation)
-- [ ] Structure complete (intro → verses → chorus → outro)
-- [ ] Energy level appropriate for purpose
-- [ ] Lyrics audible and correct
-- [ ] Musical memory consistent (motifs recur correctly across 8 min)
+- [ ] BPM 接近目标（±5 BPM 可接受）
+- [ ] 人声清晰、有表现力
+- [ ] 无明显音频伪影（V5 频率分离更好）
+- [ ] 结构完整（前奏 → 主歌 → 副歌 → 结尾）
+- [ ] 能量水平符合用途
+- [ ] 歌词可听清且正确
+- [ ] 音乐记忆一致（主题动机在 8 分钟内能正确复现）
 
-### 5. Export & Delivery
+### 5. 导出与交付
 
-- **Distribution**: WAV 16-bit/44.1kHz
-- **Preview/Draft**: MP3 320kbps
-- **Stems**: Vocals, drums, bass, guitar, synths, etc. (Pro/Premier)
-- **MIDI**: Export available (Studio)
-- **Artwork**: 3000x3000px for distribution
+- **母带/成品**：WAV 16-bit/44.1kHz
+- **预览/草稿**：MP3 320kbps
+- **分轨**：人声、鼓、贝斯、吉他、合成器等
+- **MIDI**：支持导出
 
-## Suno Studio (Premier Only)
+## Suno Studio
 
-Suno Studio is a Generative Audio Workstation (GAW) combining DAW editing with AI generation.
+Suno Studio 是一种生成式音频工作站（GAW），将 DAW 编辑与 AI 生成结合。
 
-### Key Features
+### 关键功能
 
-| Feature | Description |
+| 功能 | 说明 |
 |---------|-------------|
-| **Multi-track Timeline** | Arrange, layer, edit with precision |
-| **Stem Separation** | Auto-split into vocals, drums, bass, etc. |
-| **Take Lanes** | Compare multiple generated versions |
-| **Comping** | Combine best parts from different takes |
-| **Replace Section** | Regenerate any slice with smooth crossfades |
-| **BPM/Pitch Control** | Adjust tempo and pitch per track |
-| **Record Audio** | Record directly into timeline |
-| **Sample to Song** | Upload short clips, expand to full compositions |
-| **MIDI Export** | Export for external DAW editing |
-| **Auto-save** | Projects save automatically |
+| **多轨时间线** | 精准编排、叠加与编辑 |
+| **分轨分离** | 自动拆分成人声、鼓、贝斯等 |
+| **Take Lanes** | 对比多版本生成结果 |
+| **Comping** | 组合不同版本的最佳片段 |
+| **Replace Section** | 平滑交叉淡入淡出地重生成任意片段 |
+| **BPM/音高控制** | 按轨调整速度与音高 |
+| **录音** | 直接在时间线录制 |
+| **Sample to Song** | 上传短片段扩展成完整作品 |
+| **MIDI 导出** | 便于外部 DAW 编辑 |
+| **自动保存** | 项目自动保存 |
 
-### Studio Workflow
+### Studio 工作流
 
-1. Create or import song into Studio
-2. View stems in Details panel → Insert All to timeline
-3. Use Take Lanes to audition versions
-4. Comp best sections to Main Track
-5. Add/Replace instruments or vocals
-6. Export: Full Song, Selected Range, or Multitracks
+1. 在 Studio 中创建或导入歌曲
+2. 在 Details 面板查看分轨 → Insert All 到时间线
+3. 用 Take Lanes 试听不同版本
+4. 将最佳片段 Comp 到主轨
+5. 添加/替换乐器或人声
+6. 导出：整首、选区或多轨
 
-## V5 Features Summary
+## V5 特性概览
 
-| Feature | Benefit |
+| 特性 | 价值 |
 |---------|---------|
-| **Persistent Memory** | Motifs stay consistent across 8 minutes |
-| **Negative Prompting** | Exclude elements: "no vocals", "no guitars" |
-| **Better Vocals** | Natural pronunciation, authentic emotion |
-| **Cleaner Mix** | Superior frequency separation, less "mud" |
-| **Faster Generation** | 10x speed improvement |
-| **Intelligent Arrangement** | Auto-structures verses, choruses, bridges |
-| **Hoooks** | Create shareable short clips for promotion |
+| **持续记忆** | 主题动机在 8 分钟内保持一致 |
+| **负向提示** | 排除元素：“no vocals”“no guitars” |
+| **更好的人声** | 更自然的发音与情绪 |
+| **更干净的混音** | 更好的频率分离，减少“浑浊” |
+| **更快生成** | 速度提升约 10 倍 |
+| **智能编曲** | 自动生成主歌/副歌/桥段结构 |
+| **Hoooks** | 生成可分享的短片段用于推广 |
 
-## Project-Specific Workflows
+## 按项目类型的流程
 
-### Single Track
+### 单曲
 
-1. Define style, mood, target duration (up to 8 min)
-2. Write structured lyrics with meta-tags (6-12 syllables/line)
-3. Generate and select best version
-4. Extend if needed (use callbacks for consistency)
-5. Remaster (Subtle) for polish
+1. 明确风格、情绪与目标时长（最多 8 分钟）
+2. 用元标签写结构化歌词（每行 6-12 音节）
+3. 生成并选择最佳版本
+4. 需要时 Extend（用回调保持一致）
+5. Remaster（Subtle）做精修
 
-### Playlist Creation
+### 歌单创作
 
-1. Define theme, total duration, track count
-2. Plan energy curve (see [references/bpm-guide.md](references/bpm-guide.md))
-3. Create consistent style template or save a Persona
-4. Generate tracks following progression
-5. Remaster all tracks (Subtle) for cohesion
-6. Verify total timing and transitions
+1. 明确主题、总时长、曲目数
+2. 设计能量曲线（参见 [references/bpm-guide.md](references/bpm-guide.md)）
+3. 建立统一风格模板或保存 Persona
+4. 按进程生成曲目
+5. 全部曲目 Remaster（Subtle）以统一质感
+6. 校验总时长与衔接过渡
 
-### Corporate/Client Projects
+### 企业/客户项目
 
-1. Research context (company, brand, values)
-2. Identify key messages and tone
-3. Write lyrics incorporating brand elements
-4. Generate with appropriate professional style
-5. Use Studio (Premier) for precise editing if needed
-6. Prepare multiple versions for client review
-7. Document process for revisions
+1. 调研背景（公司、品牌、价值观）
+2. 明确关键信息与语气
+3. 在歌词中融入品牌元素
+4. 用合适的专业风格生成
+5. 需要时使用 Studio（Premier）精修
+6. 准备多个版本供客户审阅
+7. 记录流程以便迭代
 
-## Best Practices
+## 最佳实践
 
-### Do
-- Specify exact BPM for tempo-critical projects
-- Write original lyrics (strengthens copyright claims)
-- Use era references ("80s synths", "90s boom bap")
-- Keep prompts focused: 1-2 genres + 1 mood + instruments
-- Front-load important tags in first lines
-- Use callbacks on Extend: "continue with same vibe as chorus"
-- Use negative prompting to exclude unwanted elements
-- Save successful prompts and Personas for reuse
-- Keep lyrics to 6-12 syllables per line for best alignment
+### 建议
+- 为节奏关键项目指定精确 BPM
+- 编写原创歌词（增强版权主张）
+- 使用年代参考（"80s synths"、"90s boom bap"）
+- 提示词保持聚焦：1-2 个流派 + 1 种情绪 + 乐器
+- 重要标签前置到开头几行
+- Extend 时用回调："continue with same vibe as chorus"
+- 用负向提示排除不需要的元素
+- 保存成功的提示词与 Persona 便于复用
+- 每行歌词保持 6-12 音节以获得更好对齐
 
-### Don't
-- Name specific artists (copyright risk)
-- Overload prompts with contradicting terms
-- Use vague descriptions ("cool song")
-- Skip the Remaster step for playlists
-- Ignore content restrictions for target audience
-- Chain too many Extends without callbacks (causes drift)
-
-## Commercial Rights
-
-- **Pro/Premier accounts**: Commercial rights included
-- **Write original lyrics**: Reinforces your rights
-- **Keep invoices**: Proof of license for distributors
-- **After cancellation**: Rights retained on created content
-
-For distribution details, see [references/distribution.md](references/distribution.md).
+### 避免
+- 指名具体艺人（版权风险）
+- 在提示词中塞入相互冲突的描述
+- 使用模糊描述（"cool song"）
+- 为歌单跳过 Remaster 步骤
+- 忽视面向受众的内容限制
+- 在没有回调的情况下连续 Extend 太多次（会跑偏）

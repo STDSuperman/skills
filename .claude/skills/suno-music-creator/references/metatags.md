@@ -1,51 +1,51 @@
-# Meta-Tags & Structure Reference (V5 Updated)
+# 元标签与结构参考（V5 更新）
 
-Meta-tags in [brackets] guide Suno's structure, vocals, and production. V5 honors tags more consistently, especially in Studio Timeline.
+放在 [方括号] 内的元标签可控制 Suno 的结构、人声与制作风格。V5 对标签的遵循更稳定，尤其在 Studio 时间线中。
 
-## V5 Prompting Best Practices
+## V5 提示最佳实践
 
-- **Front-load control**: Put key tags in first 3-5 lines
-- **Keep it tight**: 1-2 genres + 1 mood + optional instruments
-- **Syllable count**: 6-12 syllables per line for best vocal alignment
-- **Use callbacks on Extend**: "continue with same vibe as chorus"
-- **Negative prompting**: Add exclusions in style prompt ("no guitars", "no harsh distortion")
+- **前置控制**：关键标签放在前 3-5 行
+- **保持简洁**：1-2 个流派 + 1 个情绪 + 可选乐器
+- **音节数**：每行 6-12 个音节更利于对齐
+- **Extend 用回调**："continue with same vibe as chorus"
+- **负向提示**：在风格提示词中添加排除项（"no guitars"、"no harsh distortion"）
 
-## Structure Tags
+## 结构标签
 
-Place in lyrics field between brackets `[ ]` to control song structure.
+在歌词栏中使用 `[ ]` 放置标签来控制歌曲结构。
 
-### Essential Tags
+### 基础标签
 
-| Tag | Purpose |
-|-----|---------|
-| `[Intro]` | Instrumental or soft vocal opening |
-| `[Verse]` / `[Verse 1]` | Main narrative section |
-| `[Pre-Chorus]` | Tension build before chorus |
-| `[Chorus]` | Main hook, most memorable part |
-| `[Post-Chorus]` | Energy maintenance after chorus |
-| `[Bridge]` | Melodic/harmonic variation |
-| `[Break]` | Instrumental pause, drum drop |
-| `[Hook]` | Catchy repeated phrase |
-| `[Interlude]` | Instrumental passage between sections |
-| `[Outro]` | Song conclusion |
-| `[End]` | Explicit ending marker |
-| `[Fade Out]` | Progressive fade to silence |
+| 标签 | 作用 |
+|-----|------|
+| `[Intro]` | 器乐或轻人声开场 |
+| `[Verse]` / `[Verse 1]` | 主叙事段 |
+| `[Pre-Chorus]` | 副歌前的张力铺垫 |
+| `[Chorus]` | 主 Hook、记忆点 |
+| `[Post-Chorus]` | 副歌后能量延续 |
+| `[Bridge]` | 和声/旋律变化 |
+| `[Break]` | 器乐间歇、鼓点 Drop |
+| `[Hook]` | 重复的抓耳短句 |
+| `[Interlude]` | 段落间器乐过渡 |
+| `[Outro]` | 结尾 |
+| `[End]` | 明确结束标记 |
+| `[Fade Out]` | 渐弱到静音 |
 
-### Instrumental Tags
+### 器乐标签
 
-| Tag | Purpose |
-|-----|---------|
-| `[Instrumental]` | Section without vocals |
-| `[Guitar Solo]` | Guitar solo section |
-| `[Piano Solo]` | Piano solo section |
-| `[Synth Solo]` | Synthesizer solo |
-| `[Drum Break]` | Drum-focused section |
-| `[Drop]` | EDM-style bass drop |
-| `[Build]` | Rising tension section |
+| 标签 | 作用 |
+|-----|------|
+| `[Instrumental]` | 无人声段落 |
+| `[Guitar Solo]` | 吉他独奏 |
+| `[Piano Solo]` | 钢琴独奏 |
+| `[Synth Solo]` | 合成器独奏 |
+| `[Drum Break]` | 鼓段落 |
+| `[Drop]` | EDM 式低频 Drop |
+| `[Build]` | 逐步蓄力段 |
 
-## Control Tags
+## 控制标签
 
-### Energy & Mood
+### 能量与情绪
 
 ```
 [Mood: Uplifting]
@@ -62,9 +62,9 @@ Place in lyrics field between brackets `[ ]` to control song structure.
 [Energy: Medium→High]
 ```
 
-### Emotional Verse Tags (V5)
+### 情绪化段落标签（V5）
 
-V5 interprets emotional modifiers on sections:
+V5 会识别段落的情绪修饰：
 ```
 [angry verse]
 [sad verse]
@@ -73,7 +73,7 @@ V5 interprets emotional modifiers on sections:
 [melancholic bridge]
 ```
 
-### Instrumentation
+### 乐器配置
 
 ```
 [Instrument: Piano]
@@ -88,7 +88,7 @@ V5 interprets emotional modifiers on sections:
 [Instrument: Bright Electric Guitars, Live Drums]
 ```
 
-### Texture & Era Tags (V5)
+### 质感与年代标签（V5）
 
 ```
 [Texture: Tape-Saturated]
@@ -97,7 +97,7 @@ V5 interprets emotional modifiers on sections:
 [Texture: Crisp Digital]
 ```
 
-### Vocal Style
+### 人声风格
 
 ```
 [Vocal Style: Whisper]
@@ -111,15 +111,15 @@ V5 interprets emotional modifiers on sections:
 [Vocal Style: Open, Confident]
 ```
 
-### V5 Personas (More Consistent)
+### V5 Persona（更稳定）
 
-V5 maintains Persona consistency better than previous versions:
-- **Whisper Soul** – lo-fi intimacy
-- **Power Praise** – gospel anthems
-- **Retro Diva** – synthpop and disco
-- **Conversational Flow** – clear hip hop phrasing
+V5 对 Persona 的一致性优于旧版本：
+- **Whisper Soul** – lo-fi 亲密感
+- **Power Praise** – gospel 赞歌
+- **Retro Diva** – synthpop 与 disco
+- **Conversational Flow** – 清晰的 hip hop 语感
 
-### Vocal Effects
+### 人声效果
 
 ```
 [Vocal Effect: Reverb]
@@ -129,14 +129,14 @@ V5 maintains Persona consistency better than previous versions:
 [Vocal Effect: Distortion]
 ```
 
-### Voice Modulation (V5)
+### 人声音高调制（V5）
 
 ```
 [modulate up a key]
 [modulate down a key]
 ```
 
-### Special Effects (V5)
+### 特效（V5）
 
 ```
 [crowd sings]
@@ -144,27 +144,27 @@ V5 maintains Persona consistency better than previous versions:
 [loop-friendly]
 ```
 
-### Callback Tags (V5 - for Extend)
+### 回调标签（V5 - 用于 Extend）
 
-Use to maintain consistency when extending:
+用于 Extend 时保持一致性：
 ```
 [Callback: continue with same vibe as chorus]
 [Callback: maintain energy from verse]
 ```
 
-## Performance Indicators
+## 演唱表现指示
 
-### Text Formatting
+### 文本格式
 
-| Format | Effect |
+| 格式 | 效果 |
 |--------|--------|
-| `UPPERCASE TEXT` | Shouted/emphasized |
-| `(text in parentheses)` | Backing vocals/harmonies |
-| Repeated lines | Sung in loop |
-| `~word~` | Elongated note |
-| `word-` | Cut off abruptly |
+| `UPPERCASE TEXT` | 叫喊/强调 |
+| `(text in parentheses)` | 和声/背唱 |
+| Repeated lines | 循环唱法 |
+| `~word~` | 拉长音 |
+| `word-` | 突然截断 |
 
-### Timing Hints
+### 节奏提示
 
 ```
 [Slow]
@@ -176,9 +176,9 @@ Use to maintain consistency when extending:
 [Instrumental, 4 bars]
 ```
 
-## Complete Example (V5 Optimized)
+## 完整示例（V5 优化）
 
-Note: 6-12 syllables per line, front-loaded tags, callback ready.
+注：每行 6-12 音节、标签前置、可回调。
 
 ```
 [Intro]
@@ -246,48 +246,48 @@ NOTHING'S GONNA STOP US!
 Rising... rising... born to fly...
 ```
 
-## Tips for Effective Structure
+## 结构建议
 
-### Song Length Control
-- More sections = longer song (V5 supports up to 8 minutes)
-- 2 verses + 2 choruses ≈ 2-3 min
-- Add bridge and outro for 3-4 min
-- Use `[Instrumental, X bars]` for padding
+### 歌曲长度控制
+- 段落越多，歌曲越长（V5 支持最长 8 分钟）
+- 2 段主歌 + 2 段副歌 ≈ 2-3 分钟
+- 加入 Bridge 与 Outro 可达 3-4 分钟
+- 用 `[Instrumental, X bars]` 进行补足
 
-### Energy Management
-- Start `[Energy: Medium]` for room to build
-- Use `[Energy: Rising]` in pre-chorus
-- Use `[Energy: Medium→High]` for gradual transitions
-- Peak at `[Energy: High]` or `[Maximum]` in final chorus
-- Gradual decrease in outro
+### 能量管理
+- 以 `[Energy: Medium]` 开始，为后续提升留空间
+- 在 Pre-Chorus 使用 `[Energy: Rising]`
+- 用 `[Energy: Medium→High]` 做渐变过渡
+- 末段副歌冲顶到 `[Energy: High]` 或 `[Maximum]`
+- Outro 逐步降低
 
-### Cohesion
-- Repeat chorus structure identically
-- Use consistent tag style throughout
-- Match mood tags to lyrical content
-- V5's persistent memory maintains motifs across full song
+### 连贯性
+- 副歌结构保持一致
+- 标签风格统一
+- 情绪标签与歌词内容一致
+- V5 的持续记忆可保持动机一致
 
-### V5-Specific Tips
-- Use callbacks when extending: prevents drift
-- Negative prompting in style field: "no guitars", "no harsh distortion"
-- Emotional verse tags work well: [sad verse], [angry chorus]
-- Loop-friendly tag helps for seamless loops
-- Remaster (Subtle) for consistent quality across playlist
+### V5 特别提示
+- Extend 时使用回调，避免风格漂移
+- 风格栏负向提示："no guitars"、"no harsh distortion"
+- 情绪化段落标签表现更好：[sad verse]、[angry chorus]
+- "loop-friendly" 可用于无缝循环
+- 歌单整体建议 Remaster（Subtle）
 
-### Common Mistakes to Avoid
-- Too many consecutive tags (confuses AI)
-- Contradicting mood indicators
-- Overly complex structures for short songs
-- Missing essential sections (intro/outro)
-- Long Extend chains without callbacks (causes drift)
-- Lines over 12 syllables (vocal alignment issues)
+### 常见错误
+- 连续标签过多（模型难以理解）
+- 情绪指令互相矛盾
+- 短歌曲使用过于复杂的结构
+- 缺少必要段落（Intro/Outro）
+- Extend 过多且无回调（造成漂移）
+- 单行超过 12 音节（对齐问题）
 
-### Troubleshooting
+### 故障排查
 
-| Problem | Solution |
+| 问题 | 解决方案 |
 |---------|----------|
-| Prompt overload (ignored tags) | Simplify to 1-2 genres; keep mood specific |
-| Repetition | Add "variation/dynamic" cues or Replace section |
-| Artifacts (hiss/shimmer) | Try Remaster Subtle first |
-| Vocals buried | Export stems and rebalance; or Replace with clearer Persona |
-| Extend drift | Re-inject genre/mood + use callback phrasing |
+| 提示词过载（标签被忽略） | 简化为 1-2 个流派，情绪更具体 |
+| 过度重复 | 加入 "variation/dynamic" 或 Replace section |
+| 伪影（嘶声/闪烁） | 先尝试 Remaster Subtle |
+| 人声被埋 | 导出分轨重平衡，或更换 Persona |
+| Extend 漂移 | 重新注入流派/情绪 + 使用回调措辞 |

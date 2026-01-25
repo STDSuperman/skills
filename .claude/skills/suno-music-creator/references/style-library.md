@@ -1,6 +1,6 @@
-# Style Library - Tested Prompts by Genre
+# 风格库 - 按流派验证的提示词
 
-## Electronic & EDM
+## 电子与 EDM
 
 ### House
 ```
@@ -42,7 +42,7 @@ Synthwave 80s, 110 BPM, nostalgic, retro synths, arpeggios, neon vibes, dreamy m
 Future bass, 150 BPM, colorful, wobbly synths, emotional chords, pitched vocals, festival energy
 ```
 
-## Hip-Hop & Rap
+## 嘻哈与说唱
 
 ### Boom Bap 90s
 ```
@@ -74,7 +74,7 @@ Old school hip-hop, 95 BPM, funky, breakbeats, scratching, brass samples, party 
 UK drill, 140 BPM, dark, sliding 808s, aggressive, minor key melodies, intense male rapper
 ```
 
-## Rock & Metal
+## 摇滚与金属
 
 ### Classic Rock
 ```
@@ -111,7 +111,7 @@ Heavy metal, 160 BPM, aggressive, double bass drums, shredding guitars, powerful
 Nu metal, 100 BPM, heavy, downtuned guitars, DJ scratches, rap verses, screamed chorus, aggressive
 ```
 
-## Pop & Mainstream
+## 流行与主流
 
 ### Dance Pop
 ```
@@ -138,7 +138,7 @@ K-pop, 125 BPM, energetic, catchy hooks, electronic beats, polished vocals, danc
 Power ballad, 70 BPM, emotional, piano-driven, building orchestration, soaring vocals, heartfelt lyrics
 ```
 
-## Chill & Ambient
+## 舒缓与氛围
 
 ### Lo-Fi Hip-Hop
 ```
@@ -165,7 +165,7 @@ Downtempo electronic, 90 BPM, groovy, deep bass, organic textures, world music i
 Jazz lo-fi, 80 BPM, smooth, saxophone samples, upright bass, brushed drums, late night vibes, instrumental
 ```
 
-## Specialized & Cinematic
+## 特殊与电影感
 
 ### Epic Cinematic
 ```
@@ -197,7 +197,7 @@ Christmas pop, 115 BPM, festive, sleigh bells, warm orchestration, joyful vocals
 Romantic ballad, 65 BPM, intimate, acoustic guitar, soft strings, tender vocals, heartfelt, elegant
 ```
 
-## French Styles
+## 法语风格
 
 ### Variété Française
 ```
@@ -214,22 +214,22 @@ French touch, 122 BPM, funky, filtered disco samples, groovy bassline, vocoder v
 Chanson française, 85 BPM, poétique, accordéon, guitare acoustique, voix expressive, intimiste
 ```
 
-## Adaptation Tips
+## 适配建议
 
-### Adjust Energy
-- Add "high energy" or "intense" for workout
-- Add "gentle" or "soft" for relaxation
-- Add "building" or "rising" for crescendos
+### 调整能量
+- 训练场景可加入 "high energy" 或 "intense"
+- 放松场景可加入 "gentle" 或 "soft"
+- 需要渐强可加入 "building" 或 "rising"
 
-### Adjust Production
-- "Festival production" = Big, polished sound
-- "Lo-fi production" = Warm, vintage feel
-- "Minimal production" = Clean, sparse
-- "Raw production" = Unpolished, authentic
+### 调整制作质感
+- "Festival production" = 更大、更精致的声场
+- "Lo-fi production" = 温暖、复古的质感
+- "Minimal production" = 干净、克制
+- "Raw production" = 粗粝、真实
 
-### Vocal Variations
-- "Powerful female vocals" = Strong, confident
-- "Ethereal female vocals" = Soft, dreamy
-- "Raspy male vocals" = Rock, authentic
-- "Smooth male vocals" = R&B, polished
-- "Auto-tuned vocals" = Modern, processed
+### 声线变化
+- "Powerful female vocals" = 强劲、自信
+- "Ethereal female vocals" = 轻柔、梦幻
+- "Raspy male vocals" = 粗糙、摇滚感
+- "Smooth male vocals" = 细腻、R&B 质感
+- "Auto-tuned vocals" = 现代感、处理化

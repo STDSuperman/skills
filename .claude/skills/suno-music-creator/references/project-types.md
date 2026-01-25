@@ -1,24 +1,24 @@
-# Project Types & Templates
+# 项目类型与模板
 
-## Single Track Projects
+## 单曲项目
 
-### Corporate Anthem / Company Song
+### 企业 Anthem / 公司主题曲
 
-**Purpose**: Celebrate company culture, values, team spirit
+**目的**：庆祝公司文化、价值观与团队精神
 
-**Process**:
-1. Research company website, values, mission
-2. Identify key themes (innovation, teamwork, growth, etc.)
-3. Choose tone (professional, fun, inspiring, quirky)
-4. Write lyrics incorporating company-specific elements
-5. Generate in appropriate style (pop-rock, electronic, etc.)
+**流程**：
+1. 研究公司官网、价值观、使命
+2. 提炼关键主题（创新、协作、成长等）
+3. 选择语气（专业、轻松、有感染力、有趣）
+4. 写入公司元素的歌词
+5. 用合适风格生成（流行摇滚、电子等）
 
-**Style suggestions**:
-- Serious company: `Corporate inspiring, 120 BPM, uplifting, orchestral elements, powerful vocals`
-- Tech startup: `Electropop, 125 BPM, modern, energetic, catchy hooks`
-- Creative agency: `Indie rock, 115 BPM, quirky, playful, authentic vocals`
+**风格建议**：
+- 严肃型企业：`Corporate inspiring, 120 BPM, uplifting, orchestral elements, powerful vocals`
+- 科技创业公司：`Electropop, 125 BPM, modern, energetic, catchy hooks`
+- 创意机构：`Indie rock, 115 BPM, quirky, playful, authentic vocals`
 
-**Lyrics template**:
+**歌词模板**：
 ```
 [Intro]
 [Verse 1] - Company origin/mission
@@ -31,190 +31,190 @@
 [Outro]
 ```
 
-### Jingle / Advertisement
+### 广告 Jingle / 广告曲
 
-**Purpose**: Memorable short piece for brand recognition
+**目的**：用于品牌识别的短小记忆点
 
-**Characteristics**:
-- Duration: 15-60 seconds
-- Catchy hook in first 5 seconds
-- Brand name repeated 2-3 times
-- Simple, memorable melody
+**特征**：
+- 时长：15-60 秒
+- 前 5 秒出现抓耳 Hook
+- 品牌名重复 2-3 次
+- 简单、好记的旋律
 
-**Process**:
-1. Define key message (one main idea)
-2. Write ultra-short lyrics (4-8 lines max)
-3. Focus on hook/tagline
-4. Generate multiple versions
-5. Crop to exact length needed
+**流程**：
+1. 明确核心信息（一个重点）
+2. 写超短歌词（最多 4-8 行）
+3. 聚焦 Hook/口号
+4. 生成多个版本
+5. 裁剪到所需长度
 
-**Style suggestions**:
-- Radio ad: `Catchy pop jingle, 120 BPM, bright, memorable hook, cheerful vocals`
-- Luxury brand: `Elegant cinematic, 90 BPM, sophisticated, orchestral, no vocals`
-- Tech product: `Modern electronic, 128 BPM, sleek, futuristic, minimal vocals`
+**风格建议**：
+- 电台广告：`Catchy pop jingle, 120 BPM, bright, memorable hook, cheerful vocals`
+- 奢侈品牌：`Elegant cinematic, 90 BPM, sophisticated, orchestral, no vocals`
+- 科技产品：`Modern electronic, 128 BPM, sleek, futuristic, minimal vocals`
 
-### Personalized Song (Gift)
+### 个性化定制歌曲（礼物）
 
-**Purpose**: Custom song for birthday, wedding, anniversary, etc.
+**目的**：生日、婚礼、纪念日等定制歌曲
 
-**Process**:
-1. Gather personal details (names, story, inside jokes)
-2. Define emotional tone (funny, romantic, nostalgic)
-3. Write personalized lyrics
-4. Choose genre matching recipient's taste
-5. Generate and select most emotionally resonant version
+**流程**：
+1. 收集个人信息（名字、故事、内部梗）
+2. 确定情绪基调（搞笑、浪漫、怀旧）
+3. 写个性化歌词
+4. 选择符合收礼人的流派
+5. 生成并选出最有情感共鸣的版本
 
-**Key elements**:
-- Include names naturally in lyrics
-- Reference specific shared memories
-- Match recipient's music preferences
-- Consider occasion appropriateness
+**关键要素**：
+- 自然地在歌词中加入姓名
+- 引用具体共同记忆
+- 匹配对方的音乐偏好
+- 注意场合适配
 
-### Event Theme Song
+### 活动主题曲
 
-**Purpose**: Original music for conference, festival, launch
+**目的**：为会议、节日、发布会等活动创作原创音乐
 
-**Process**:
-1. Understand event theme and audience
-2. Define energy level and duration needed
-3. Write lyrics around event message
-4. Generate in appropriate style
-5. Prepare different lengths (full, 60s, 30s)
+**流程**：
+1. 了解活动主题与受众
+2. 确定所需能量与时长
+3. 围绕活动信息写歌词
+4. 以合适风格生成
+5. 准备不同长度版本（全长、60s、30s）
 
 ---
 
-## Playlist Projects
+## 歌单项目
 
-### Workout Playlist
+### 运动歌单
 
-**Structure**: Energy curve matching exercise phases
+**结构**：与运动阶段匹配的能量曲线
 
-**Template (30 min)**:
-| # | Phase | BPM | Duration |
-|---|-------|-----|----------|
-| 1 | Warm-up | 110-120 | 5 min |
-| 2 | Build | 130-140 | 3 min |
-| 3-4 | Peak | 150-160 | 8 min |
-| 5 | Active recovery | 120 | 2 min |
-| 6-7 | Peak 2 | 155-165 | 8 min |
-| 8 | Cool-down | 90→70 | 4 min |
+**模板（30 分钟）**：
+| # | 阶段 | BPM | 时长 |
+|---|------|-----|------|
+| 1 | 热身 | 110-120 | 5 分钟 |
+| 2 | 增强 | 130-140 | 3 分钟 |
+| 3-4 | 高峰 | 150-160 | 8 分钟 |
+| 5 | 主动恢复 | 120 | 2 分钟 |
+| 6-7 | 第二高峰 | 155-165 | 8 分钟 |
+| 8 | 放松 | 90→70 | 4 分钟 |
 
-**Consistency tips**:
-- Use same voice type throughout (or intentional alternation)
-- Maintain genre family (EDM variants, rock variants)
-- Apply Remaster (Subtle) to all tracks
+**一致性建议**：
+- 全程使用相同声线（或有意轮换）
+- 保持同一风格家族（EDM 变体、摇滚变体）
+- 全曲应用 Remaster（Subtle）
 
-### Focus / Study Playlist
+### 专注/学习歌单
 
-**Structure**: Sustained low energy, minimal distraction
+**结构**：持续低能量、低干扰
 
-**Characteristics**:
-- BPM: 60-90
-- Mostly instrumental or subtle vocals
-- No sudden changes or drops
-- Loopable, ambient qualities
+**特征**：
+- BPM：60-90
+- 以纯器乐或轻人声为主
+- 无突然变化或 Drop
+- 适合循环的氛围感
 
-**Genre mix**:
+**流派组合**：
 - Lo-fi hip-hop
 - Ambient electronic
 - Minimal piano
 - Jazz instrumentals
 
-**Template (2 hours)**:
-| Block | Duration | Style | BPM |
-|-------|----------|-------|-----|
-| 1-4 | 30 min | Lo-fi hip-hop | 70-80 |
-| 5-8 | 30 min | Ambient | 60-70 |
-| 9-12 | 30 min | Minimal electronic | 100-110 |
-| 13-16 | 30 min | Jazz lo-fi | 75-85 |
+**模板（2 小时）**：
+| 区块 | 时长 | 风格 | BPM |
+|------|------|------|-----|
+| 1-4 | 30 分钟 | Lo-fi hip-hop | 70-80 |
+| 5-8 | 30 分钟 | Ambient | 60-70 |
+| 9-12 | 30 分钟 | Minimal electronic | 100-110 |
+| 13-16 | 30 分钟 | Jazz lo-fi | 75-85 |
 
-### Event Ambiance Playlist
+### 活动氛围歌单
 
-**Structure**: Progressive energy matching event timeline
+**结构**：与活动时间线匹配的渐进能量
 
-**Template (3-hour event)**:
-| Phase | Duration | Mood | BPM |
-|-------|----------|------|-----|
-| Arrival | 45 min | Welcoming | 90-100 |
-| Mingling | 45 min | Upbeat | 100-110 |
-| Main event | 60 min | Energetic | 110-120 |
-| Peak | 30 min | High energy | 120-130 |
+**模板（3 小时活动）**：
+| 阶段 | 时长 | 氛围 | BPM |
+|------|------|------|-----|
+| 入场 | 45 分钟 | 友好 | 90-100 |
+| 社交 | 45 分钟 | 轻快 | 100-110 |
+| 主活动 | 60 分钟 | 活跃 | 110-120 |
+| 高峰 | 30 分钟 | 高能量 | 120-130 |
 
-### Children's Music Album
+### 儿童音乐专辑
 
-**Characteristics**:
-- BPM: 100-120 (active), 70-90 (calm)
-- Simple, repetitive lyrics
-- Educational or fun themes
-- Bright, playful instrumentation
-- Age-appropriate content
+**特征**：
+- BPM：100-120（活泼），70-90（平缓）
+- 简单、重复的歌词
+- 教育或趣味主题
+- 明亮、活泼的配器
+- 年龄适配的内容
 
-**Track types**:
-- Action songs (movement, dance)
-- Learning songs (ABCs, numbers, colors)
-- Calming songs (bedtime, relaxation)
-- Story songs (narrative, characters)
-
----
-
-## Client Project Workflow
-
-### Discovery Phase
-
-Gather from client:
-- [ ] Brand guidelines (colors, tone, values)
-- [ ] Target audience demographics
-- [ ] Existing music references (what they like)
-- [ ] Anti-references (what to avoid)
-- [ ] Usage context (where music will play)
-- [ ] Duration requirements
-- [ ] Budget for revisions
-- [ ] Timeline
-
-### Production Phase
-
-1. **Create brief summary** documenting all requirements
-2. **Generate 3-5 concepts** with different approaches
-3. **Present options** with rationale for each
-4. **Refine selected direction** based on feedback
-5. **Produce final versions** (different lengths if needed)
-6. **Deliver files** in required formats
-
-### Delivery Checklist
-
-- [ ] WAV master files
-- [ ] MP3 preview files
-- [ ] Different lengths (full, 60s, 30s, 15s)
-- [ ] Stems if requested
-- [ ] Usage rights documentation
-- [ ] Invoice/proof of Suno license
+**曲目类型**：
+- 动作类（动作、舞蹈）
+- 学习类（字母、数字、颜色）
+- 安抚类（睡前、放松）
+- 故事类（叙事、角色）
 
 ---
 
-## Session Documentation
+## 客户项目流程
 
-For any project, document:
+### 发现阶段
+
+从客户收集：
+- [ ] 品牌规范（配色、语气、价值观）
+- [ ] 目标受众画像
+- [ ] 现有音乐参考（喜欢什么）
+- [ ] 反向参考（要避免什么）
+- [ ] 使用场景（音乐播放的地方）
+- [ ] 时长需求
+- [ ] 修订预算
+- [ ] 时间线
+
+### 制作阶段
+
+1. **整理简报**，记录所有需求
+2. **生成 3-5 个概念**，方向各异
+3. **给出选项**并说明选择依据
+4. **根据反馈**精修选定方向
+5. **产出最终版本**（必要时多种长度）
+6. **按要求格式**交付文件
+
+### 交付清单
+
+- [ ] WAV 母带文件
+- [ ] MP3 预览文件
+- [ ] 不同长度（全长、60s、30s、15s）
+- [ ] 需要时提供分轨
+- [ ] 使用权益说明文档
+- [ ] Suno 许可证发票/证明
+
+---
+
+## 会话记录
+
+任何项目都建议记录：
 
 ```
-## Project: [Name]
-**Date**: [Date]
-**Client/Purpose**: [Details]
-**Type**: [Single/Playlist/Album]
+## 项目：[名称]
+**日期**：[日期]
+**客户/用途**：[详情]
+**类型**：[单曲/歌单/专辑]
 
-### Requirements
-- Style: [Genre, mood]
-- Duration: [Length]
-- Voice: [Type]
-- Special requests: [Notes]
+### 需求
+- 风格：[流派、情绪]
+- 时长：[长度]
+- 声线：[类型]
+- 特殊要求：[备注]
 
-### Generation Log
-| Track | Attempts | Final Prompt | Notes |
-|-------|----------|--------------|-------|
+### 生成记录
+| 曲目 | 尝试次数 | 最终提示词 | 备注 |
+|------|----------|------------|------|
 | 1 | X | [prompt] | [notes] |
 
-### Successful Prompts
-[Save prompts that worked well for future reference]
+### 成功提示词
+[保存效果好的提示词便于复用]
 
-### Lessons Learned
-[What to do differently next time]
+### 复盘
+[下次可以改进的点]
 ```
