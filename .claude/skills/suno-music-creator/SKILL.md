@@ -9,172 +9,154 @@ metadata:
   tags: music, suno, ai-music, music-creation, song-creation, audio-generation
 ---
 
-# Suno 音乐创作
+# Suno AI 音乐生成参数助手
 
-使用 Suno AI V5 与 Suno Studio 创作高质量音乐的专业流程。
+这个 skill 会帮你生成可直接粘贴到 Suno AI 的格式化参数，简化音乐创作流程。
 
-## 快速索引
+## 工作流程
 
-| 主题 | 参考文件 |
-|-------|----------------|
-| 按风格的提示词 | [references/style-library.md](references/style-library.md) |
-| 按使用场景的 BPM 指南 | [references/bpm-guide.md](references/bpm-guide.md) |
-| 结构与元标签 | [references/metatags.md](references/metatags.md) |
-| 项目模板 | [references/project-types.md](references/project-types.md) |
+### 第 1 步：收集需求
 
-## 核心流程
+我会询问你关于音乐的需求，包括：
+- **音乐类型/风格**：流派、情绪、氛围
+- **歌词内容**：自定义歌词 / AI 生成 / 纯器乐
+- **节奏速度**：BPM 或描述（轻快/中等/缓慢）
+- **乐器偏好**：主要乐器或不需要的乐器
+- **声线性别**：男声 / 女声 / 无人声
+- **特殊要求**：其他个性化需求
 
-### 1. 项目设定
+### 第 2 步：生成 Suno AI 参数
 
-需求收集：
-- **类型**：单曲 / 歌单 / 专辑
-- **用途**：个人 / 客户 / 商业发行
-- **风格**：流派、情绪、能量水平
-- **声线**：男声 / 女声 / 混合 / 纯器乐
-- **语言**：歌词目标语言
-- **时长**：单曲长度或歌单总时长（每次生成最多 8 分钟）
-- **限制**：内容限制、品牌规范
+基于你的需求，我会生成以下格式的输出：
 
-### 2. 提示词构建
-
-**风格提示词公式：**
 ```
-[Genre], [BPM] BPM, [Mood], [Key instruments], [Vocal type], [Production style]
+═══════════════════════════════════════
+📋 SUNO AI 生成参数
+═══════════════════════════════════════
+
+【Lyrics 歌词】
+[Intro]
+[Atmospheric opening]
+
+[Verse 1]
+歌词内容...
+（每行 6-12 音节效果最佳）
+
+[Chorus]
+副歌内容...
+
+[Verse 2]
+第二段主歌...
+
+[Bridge]
+过渡段...
+
+[Outro]
+[Fade out]
+
+-------------------------------------------
+
+【Styles 风格标签】
+120bpm, upbeat pop, synthesizer, electric guitar, energetic, modern production
+
+-------------------------------------------
+
+【Advanced Options 高级选项】
+✓ Vocal Gender: Female
+✓ Lyrics Mode: Manual
+✓ Weirdness: 30%
+✓ Style Influence: 50%
+
+═══════════════════════════════════════
 ```
 
-**负向提示（V5）：** 直接写出排除项：
+### 第 3 步：直接复制粘贴
+
+你只需将生成的内容复制粘贴到 Suno AI 对应的输入框即可：
+1. 复制「Lyrics 歌词」→ 粘贴到 Lyrics 输入框
+2. 复制「Styles 风格标签」→ 粘贴到 Styles 输入框
+3. 根据「Advanced Options」设置高级选项滑块和开关
+
+## 参数说明
+
+### Lyrics 歌词部分
+- 使用 `[标签]` 定义歌曲结构：`[Intro]` `[Verse]` `[Chorus]` `[Bridge]` `[Outro]`
+- 可添加情绪/能量指令：`[Soft]` `[Build up]` `[Energetic]` `[Calm]`
+- 每行歌词保持 6-12 音节可获得更好的节奏对齐
+- 留空表示生成纯器乐音乐
+
+### Styles 风格标签
+**推荐格式：**
 ```
-Upbeat pop, 120 BPM, no guitars, no harsh distortion, clean mix
+[BPM]bpm, [流派], [情绪], [主要乐器], [人声风格], [制作风格]
 ```
 
-**歌词结构：** 在歌词栏放置元标签（比风格提示更有效）：
-```
-[Section Tag]
-[Mood/Energy instruction]
-Lyrics content (6-12 syllables per line for best alignment)
-```
+**示例：**
+- `120bpm, upbeat pop, piano, guitar, cheerful, clean production`
+- `90bpm, lofi hip hop, jazz piano, vinyl crackle, chill, no vocals`
+- `140bpm, edm, synthesizer, bass drop, energetic, no guitars`
 
-按流派的测试提示词参见 [references/style-library.md](references/style-library.md)。
-结构标签与人声控制参见 [references/metatags.md](references/metatags.md)。
+**负向提示（排除元素）：**
+- 在标签中直接写 `no [元素]`，如：`no vocals`, `no drums`, `no guitars`
 
-### 3. 生成流程
+### Advanced Options 高级选项
 
-1. 每首生成 2-4 个版本（V5 速度提升约 10 倍）
-2. 根据以下标准挑选最佳版本：
-   - BPM 准确度（关键场景可用外部工具验证）
-   - 人声清晰度与情绪表现（V5 人声更自然）
-   - 混音质量与乐器分离度
-   - 与提示词的匹配度
-3. 后期处理：
-   - **Extend**：补充段落、修复突兀结尾（用回调："continue with same vibe"）
-   - **Remaster**：Subtle（均匀）/ Medium / Wide（更有变化）
-   - **Crop**：去除不需要的前奏/尾奏
-   - **Cover**：切换风格或声线
-   - **Replace Section**：重生成特定片段（Studio）
+| 选项 | 说明 | 建议值 |
+|------|------|--------|
+| **Vocal Gender** | 声线性别 | Male / Female（纯器乐则不影响） |
+| **Lyrics Mode** | 歌词模式 | Manual（自定义歌词）/ Auto（AI 生成） |
+| **Weirdness** | 怪诞度 | 0-30%（常规）/ 50%（平衡）/ 70-100%（实验性） |
+| **Style Influence** | 风格影响强度 | 30-50%（平衡）/ 70-100%（严格遵循风格） |
 
-### 4. 质量检查清单
+## 快速参考
 
-- [ ] BPM 接近目标（±5 BPM 可接受）
-- [ ] 人声清晰、有表现力
-- [ ] 无明显音频伪影（V5 频率分离更好）
-- [ ] 结构完整（前奏 → 主歌 → 副歌 → 结尾）
-- [ ] 能量水平符合用途
-- [ ] 歌词可听清且正确
-- [ ] 音乐记忆一致（主题动机在 8 分钟内能正确复现）
+### 常用 BPM 指南
+- **60-80 BPM**：抒情慢歌、冥想、环境音乐
+- **90-100 BPM**：Lofi、Chill、R&B
+- **110-130 BPM**：流行、摇滚、Hip-Hop
+- **130-150 BPM**：House、Techno、舞曲
+- **150+ BPM**：Drum & Bass、硬核电子
 
-### 5. 导出与交付
+### 常用结构标签
+- `[Intro]` - 前奏
+- `[Verse]` / `[Verse 1]` - 主歌
+- `[Pre-Chorus]` - 前副歌
+- `[Chorus]` - 副歌
+- `[Bridge]` - 过渡段/桥段
+- `[Solo]` - 独奏段
+- `[Outro]` - 尾奏
+- `[Instrumental Break]` - 间奏
 
-- **母带/成品**：WAV 16-bit/44.1kHz
-- **预览/草稿**：MP3 320kbps
-- **分轨**：人声、鼓、贝斯、吉他、合成器等
-- **MIDI**：支持导出
+### 情绪/能量标签
+- `[Soft]` - 柔和
+- `[Build up]` - 渐强
+- `[Energetic]` - 充满活力
+- `[Calm]` - 平静
+- `[Intense]` - 激烈
+- `[Fade out]` - 淡出
 
-## Suno Studio
+### 流派参考
+详见 [references/style-library.md](references/style-library.md)
 
-Suno Studio 是一种生成式音频工作站（GAW），将 DAW 编辑与 AI 生成结合。
+## 使用技巧
 
-### 关键功能
+### ✅ 建议
+- 风格标签保持简洁：1-2 个流派 + 关键乐器 + 情绪
+- 为特定用途指定精确 BPM（如健身音乐、视频配乐）
+- 使用年代参考增加复古感：`80s synths`, `90s grunge`, `2000s emo`
+- 重要关键词放在风格标签的前面
+- 原创歌词有助于版权保护
 
-| 功能 | 说明 |
-|---------|-------------|
-| **多轨时间线** | 精准编排、叠加与编辑 |
-| **分轨分离** | 自动拆分成人声、鼓、贝斯等 |
-| **Take Lanes** | 对比多版本生成结果 |
-| **Comping** | 组合不同版本的最佳片段 |
-| **Replace Section** | 平滑交叉淡入淡出地重生成任意片段 |
-| **BPM/音高控制** | 按轨调整速度与音高 |
-| **录音** | 直接在时间线录制 |
-| **Sample to Song** | 上传短片段扩展成完整作品 |
-| **MIDI 导出** | 便于外部 DAW 编辑 |
-| **自动保存** | 项目自动保存 |
+### ❌ 避免
+- 不要提及具体艺人名字（版权风险）
+- 避免风格标签过长或相互冲突
+- 不要使用模糊描述如 "好听的歌"
+- 避免在同一首歌中混合过多流派
 
-### Studio 工作流
+## 进阶功能参考
 
-1. 在 Studio 中创建或导入歌曲
-2. 在 Details 面板查看分轨 → Insert All 到时间线
-3. 用 Take Lanes 试听不同版本
-4. 将最佳片段 Comp 到主轨
-5. 添加/替换乐器或人声
-6. 导出：整首、选区或多轨
-
-## V5 特性概览
-
-| 特性 | 价值 |
-|---------|---------|
-| **持续记忆** | 主题动机在 8 分钟内保持一致 |
-| **负向提示** | 排除元素：“no vocals”“no guitars” |
-| **更好的人声** | 更自然的发音与情绪 |
-| **更干净的混音** | 更好的频率分离，减少“浑浊” |
-| **更快生成** | 速度提升约 10 倍 |
-| **智能编曲** | 自动生成主歌/副歌/桥段结构 |
-| **Hoooks** | 生成可分享的短片段用于推广 |
-
-## 按项目类型的流程
-
-### 单曲
-
-1. 明确风格、情绪与目标时长（最多 8 分钟）
-2. 用元标签写结构化歌词（每行 6-12 音节）
-3. 生成并选择最佳版本
-4. 需要时 Extend（用回调保持一致）
-5. Remaster（Subtle）做精修
-
-### 歌单创作
-
-1. 明确主题、总时长、曲目数
-2. 设计能量曲线（参见 [references/bpm-guide.md](references/bpm-guide.md)）
-3. 建立统一风格模板或保存 Persona
-4. 按进程生成曲目
-5. 全部曲目 Remaster（Subtle）以统一质感
-6. 校验总时长与衔接过渡
-
-### 企业/客户项目
-
-1. 调研背景（公司、品牌、价值观）
-2. 明确关键信息与语气
-3. 在歌词中融入品牌元素
-4. 用合适的专业风格生成
-5. 需要时使用 Studio（Premier）精修
-6. 准备多个版本供客户审阅
-7. 记录流程以便迭代
-
-## 最佳实践
-
-### 建议
-- 为节奏关键项目指定精确 BPM
-- 编写原创歌词（增强版权主张）
-- 使用年代参考（"80s synths"、"90s boom bap"）
-- 提示词保持聚焦：1-2 个流派 + 1 种情绪 + 乐器
-- 重要标签前置到开头几行
-- Extend 时用回调："continue with same vibe as chorus"
-- 用负向提示排除不需要的元素
-- 保存成功的提示词与 Persona 便于复用
-- 每行歌词保持 6-12 音节以获得更好对齐
-
-### 避免
-- 指名具体艺人（版权风险）
-- 在提示词中塞入相互冲突的描述
-- 使用模糊描述（"cool song"）
-- 为歌单跳过 Remaster 步骤
-- 忽视面向受众的内容限制
-- 在没有回调的情况下连续 Extend 太多次（会跑偏）
+如需了解 Suno V5 高级特性、Studio 编辑功能、歌单创作等进阶内容，请查阅：
+- [风格库](references/style-library.md) - 各流派提示词模板
+- [BPM 指南](references/bpm-guide.md) - 详细的节奏速度应用场景
+- [元标签参考](references/metatags.md) - 完整的结构标签列表
+- [项目类型](references/project-types.md) - 不同类型音乐项目的最佳实践
