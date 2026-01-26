@@ -1,53 +1,106 @@
 #!/usr/bin/env python3
 """
 Audio Transcription Script
-Uses OpenAI Whisper to transcribe audio files with word-level timestamps.
+Uses OpenAI Whisper or Aliyun FunASR to transcribe audio files with timestamps.
 """
 
+import os
 import argparse
 from pathlib import Path
 import sys
+
+# Load .env before importing dashscope
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Add utils to path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from utils.whisper_processor import WhisperProcessor
+from utils.funasr_processor import FunASRProcessor
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Transcribe audio with Whisper')
-    parser.add_argument('--audio', type=Path, required=True, help='Path to audio file')
-    parser.add_argument('--output', type=Path, required=True, help='Output JSON file path')
-    parser.add_argument('--model', type=str, default='base',
-                        choices=['tiny', 'base', 'small', 'medium', 'large'],
-                        help='Whisper model to use (default: base)')
-    parser.add_argument('--language', type=str, default='zh',
-                        help='Language code (default: zh for Chinese)')
+    parser = argparse.ArgumentParser(
+        description="Transcribe audio with Whisper or FunASR"
+    )
+    parser.add_argument(
+        "--audio",
+        type=str,
+        required=True,
+        help="Path to audio file or URL (for FunASR)",
+    )
+    parser.add_argument(
+        "--output", type=Path, required=True, help="Output JSON file path"
+    )
+    parser.add_argument(
+        "--engine",
+        type=str,
+        default="whisper",
+        choices=["whisper", "funasr"],
+        help="Transcription engine to use (default: whisper)",
+    )
+
+    # Whisper options
+    parser.add_argument(
+        "--whisper-model",
+        type=str,
+        default="base",
+        choices=["tiny", "base", "small", "medium", "large"],
+        help="Whisper model to use (default: base)",
+    )
+    parser.add_argument(
+        "--language",
+        type=str,
+        default="zh",
+        help="Language code for Whisper (default: zh for Chinese)",
+    )
+
+    # FunASR options
+    parser.add_argument(
+        "--funasr-model",
+        type=str,
+        default="fun-asr",
+        choices=["fun-asr", "fun-asr-2025-11-07"],
+        help="FunASR model to use (default: fun-asr)",
+    )
 
     args = parser.parse_args()
 
-    if not args.audio.exists():
-        print(f"Error: Audio file not found: {args.audio}")
-        return 1
-
-    # Initialize Whisper processor
-    processor = WhisperProcessor(model_name=args.model)
+    # Check audio source based on engine
+    if args.engine == "whisper":
+        if not Path(args.audio).exists():
+            print(f"Error: Audio file not found: {args.audio}")
+            return 1
+    else:
+        # FunASR uses URL, no file existence check needed
+        if not args.audio.startswith(("http://", "https://")):
+            print(f"Error: FunASR requires a public URL, got: {args.audio}")
+            return 1
 
     # Transcribe audio
     try:
-        transcription = processor.transcribe(args.audio, language=args.language)
+        if args.engine == "whisper":
+            processor = WhisperProcessor(model_name=args.whisper_model)
+            transcription = processor.transcribe(args.audio, language=args.language)
+        else:
+            processor = FunASRProcessor(model_id=args.funasr_model)
+            transcription = processor.transcribe(args.audio, language="zh")
 
         # Save transcription
         processor.save_transcription(transcription, args.output)
 
         # Print summary
-        print(f"\n{'='*50}")
+        print(f"\n{'=' * 50}")
         print(f"Transcription Summary:")
+        print(f"  Engine: {args.engine.upper()}")
+        print(f"  Model: {transcription.get('model', 'N/A')}")
         print(f"  Duration: {transcription['duration']:.2f} seconds")
         print(f"  Segments: {len(transcription['segments'])}")
         print(f"  Language: {transcription['language']}")
         print(f"  Output: {args.output}")
-        print(f"{'='*50}")
+        print(f"{'=' * 50}")
 
         return 0
 
@@ -56,5 +109,5 @@ def main():
         return 1
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     exit(main())
