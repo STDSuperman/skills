@@ -8,6 +8,11 @@ import argparse
 import json
 from pathlib import Path
 import sys
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Add utils to path
 sys.path.insert(0, str(Path(__file__).parent))

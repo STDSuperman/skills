@@ -45,6 +45,10 @@ class Qwen3ASRProcessor:
         Returns:
             Transcription result with duration, language, segments, model
         """
+        # Convert Path to string if necessary
+        if isinstance(audio_file, Path):
+            audio_file = str(audio_file)
+
         print(f"正在使用 Qwen3-ASR 转录: {audio_file}")
         print(f"模型: {self.model}")
 

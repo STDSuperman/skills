@@ -158,3 +158,7 @@ Detailed documentation...
 - **Video/Audio**: Use FFmpeg, check availability before use
 - **Async Operations**: Use polling patterns, provide progress updates, implement timeouts
 - **API Integration**: Handle errors gracefully, provide retry logic, validate responses
+
+
+## 规范
+- 输出语言必须为中文
