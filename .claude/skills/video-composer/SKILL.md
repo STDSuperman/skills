@@ -1,12 +1,12 @@
 ---
 name: video-composer
-description: Compose MP4 videos from images, audio, and subtitles using FFmpeg. Supports both OpenAI Whisper and Aliyun FunASR for audio transcription with accurate timestamps, fade transitions, subtitle burning, and audio synchronization. Use when users want to create music videos, lyric videos, or slideshow videos with audio.
+description: Compose MP4 videos from images, audio, and subtitles using FFmpeg. Supports OpenAI Whisper, Aliyun FunASR, and Qwen3-ASR for audio transcription with accurate timestamps, keyframe animations, fade transitions, sentence-level subtitles, and audio synchronization. Use when users want to create music videos, lyric videos, or slideshow videos with audio.
 license: MIT
 metadata:
   author: STDSuperman
-  version: "2.0.0"
+  version: "3.0.0"
   category: video
-  tags: video, ffmpeg, composition, subtitles, music-video, whisper, transcription, funasr
+  tags: video, ffmpeg, composition, subtitles, music-video, whisper, transcription, funasr, qwen3-asr
 ---
 
 # Video Composer Skill
@@ -15,12 +15,14 @@ Compose professional MP4 videos from images, audio, and lyrics with automatic tr
 
 ## Features
 
-- **Automatic Transcription**: Uses OpenAI Whisper or Aliyun FunASR to transcribe audio and generate accurate timestamps
+- **Automatic Transcription**: Uses OpenAI Whisper, Aliyun FunASR, or Qwen3-ASR to transcribe audio and generate accurate timestamps
 - **Multiple Transcription Options**:
   - Whisper: Local processing, various model sizes (tiny/base/small/medium/large)
   - FunASR: Cloud-based API, optimized for Chinese speech recognition
+  - Qwen3-ASR: Cloud-based API, optimized for music transcription with accurate word-level timestamps
 - **Lyrics Synchronization**: Matches transcribed audio with original lyrics to determine section timing
-- **Subtitle Generation**: Creates SRT subtitle files with accurate timestamps
+- **Subtitle Generation**: Creates SRT subtitle files with sentence-level timestamps based on punctuation
+- **Keyframe Animations**: Automatic zoom (1.1x) and vertical movement effects for images
 - **Fade Transitions**: Smooth 1-second fade transitions between images
 - **Audio Synchronization**: Perfect sync between images, subtitles, and audio
 - **Chinese Language Support**: Optimized for Chinese lyrics and subtitles
@@ -51,6 +53,15 @@ python scripts/compose_video.py \
   --output video.mp4 \
   --transcription-engine whisper \
   --whisper-model medium
+
+# With Qwen3-ASR (recommended for music)
+python scripts/compose_video.py \
+  --audio audio.mp3 \
+  --lyrics lyrics.md \
+  --images illustrations/ \
+  --output video.mp4 \
+  --transcription-engine qwen3-asr \
+  --qwen3-asr-model qwen3-asr-flash
 ```
 
 ## System Requirements
@@ -164,6 +175,63 @@ This skill also supports Aliyun FunASR API for cloud-based audio transcription.
 | Fast transcription without GPU | FunASR |
 | Maximum control/quality | Whisper with medium/large models |
 
+## Qwen3-ASR Transcription
+
+This skill supports Aliyun Qwen3-ASR API for music-optimized audio transcription.
+
+### Available Models
+
+| Model  | Type | Speed | Accuracy | Use Case |
+|--------|------|-------|----------|----------|
+| qwen3-asr-flash | Cloud API | Fast | Excellent | Music transcription (Recommended) |
+| qwen3-asr-flash-us | Cloud API | Fast | Excellent | Music transcription (US region) |
+
+**Default**: `qwen3-asr-flash` model
+
+### Transcription Process (Qwen3-ASR)
+
+1. Audio file is uploaded to Aliyun DashScope
+2. Qwen3-ASR processes audio with music-optimized recognition
+3. Returns transcribed text with sentence-level timestamps
+4. Transcription is matched with original lyrics sections
+5. Section boundaries are identified automatically
+
+### Setting up Qwen3-ASR
+
+1. Get API Key from Aliyun DashScope console
+2. Set environment variable or create `.env` file:
+    ```bash
+    # Environment variable
+    export DASHSCOPE_API_KEY=sk-xxxxxxxx
+
+    # Or in .env file
+    DASHSCOPE_API_KEY=sk-xxxxxxxx
+    ```
+
+3. Use `--transcription-engine qwen3-asr` flag when running scripts
+
+### When to Use Qwen3-ASR
+
+| Scenario | Recommendation |
+|----------|----------------|
+| Music transcription | Qwen3-ASR (music-optimized) |
+| Chinese lyrics | Qwen3-ASR (best accuracy) |
+| Sentence-level timestamps | Qwen3-ASR (natural segmentation) |
+| Fast cloud processing | Qwen3-ASR |
+| No GPU available | Qwen3-ASR |
+
+### Transcription Engine Comparison
+
+| Scenario | Recommendation |
+|----------|----------------|
+| Chinese audio only | FunASR (better accuracy) |
+| Offline processing | Whisper |
+| Mixed language | Whisper |
+| Fast transcription without GPU | FunASR |
+| Maximum control/quality | Whisper with medium/large models |
+| Music transcription | Qwen3-ASR (recommended) |
+| Sentence-level lyrics sync | Qwen3-ASR |
+
 ## Script Usage
 
 ### Main Composition Script
@@ -229,6 +297,7 @@ Subtitles are burned into the video with customizable styling:
 - Color: White with black outline
 - Background: Semi-transparent black box
 - Encoding: UTF-8 (supports Chinese characters)
+- Segmentation: Sentence-level based on punctuation
 ```
 
 ### Transition Settings
@@ -238,7 +307,24 @@ Subtitles are burned into the video with customizable styling:
 - Duration: 1 second
 - Type: Crossfade between images
 - Timing: Last 1s of each image fades to next
+
+# Keyframe animations (automatic)
+- Zoom: 1.1x scale
+- Movement: Vertical up/down motion
+- Direction: Alternates between images
+- Timing: Matches image duration
 ```
+
+### Subtitle Segmentation
+
+Subtitles are automatically segmented by punctuation marks for better readability:
+
+- **Sentence delimiters**: 。，！？；
+- **Line breaks**: Create separate subtitle entries
+- **Commas**: Preserve within sentences (，)
+- **Empty sections**: Show section name (e.g., [Intro])
+
+This ensures each subtitle appears and disappears independently, preventing text stacking.
 
 ## Examples
 

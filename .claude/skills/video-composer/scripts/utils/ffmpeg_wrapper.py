@@ -11,7 +11,13 @@ from typing import List, Dict, Any
 class FFmpegWrapper:
     """Wrapper for FFmpeg video composition commands."""
 
-    def __init__(self, metadata: Dict[str, Any], audio_path: Path, subtitle_path: Path, output_path: Path):
+    def __init__(
+        self,
+        metadata: Dict[str, Any],
+        audio_path: Path,
+        subtitle_path: Path,
+        output_path: Path,
+    ):
         """
         Initialize FFmpeg wrapper.
 
@@ -25,7 +31,31 @@ class FFmpegWrapper:
         self.audio_path = audio_path
         self.subtitle_path = subtitle_path
         self.output_path = output_path
-        self.sections = metadata.get('sections', [])
+        self.sections = metadata.get("sections", [])
+        # Get actual audio duration from file
+        self.total_duration = self._get_audio_duration()
+
+    def _get_audio_duration(self) -> float:
+        """Get actual audio duration using ffprobe."""
+        try:
+            result = subprocess.run(
+                [
+                    "ffprobe",
+                    "-v",
+                    "error",
+                    "-show_entries",
+                    "format=duration",
+                    "-of",
+                    "csv=p=0",
+                    str(self.audio_path),
+                ],
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+            )
+            return float(result.stdout.strip())
+        except:
+            return 0.0
 
     def build_command(self) -> List[str]:
         """
@@ -34,81 +64,101 @@ class FFmpegWrapper:
         Returns:
             List of command arguments
         """
-        cmd = ['ffmpeg', '-y']  # -y to overwrite output file
+        cmd = ["ffmpeg", "-y"]  # -y to overwrite output file
 
         # Add image inputs with loop and duration
         for section in self.sections:
-            if section.get('image_path'):
-                cmd.extend([
-                    '-loop', '1',
-                    '-t', str(section['duration']),
-                    '-i', section['image_path']
-                ])
+            if section.get("image_path"):
+                cmd.extend(
+                    [
+                        "-loop",
+                        "1",
+                        "-t",
+                        str(section["duration"]),
+                        "-i",
+                        section["image_path"],
+                    ]
+                )
 
         # Add audio input
-        cmd.extend(['-i', str(self.audio_path)])
+        cmd.extend(["-i", str(self.audio_path)])
 
         # Build filter complex for fades and concatenation
         filter_complex = self._build_filter_complex()
-        cmd.extend(['-filter_complex', filter_complex])
+        cmd.extend(["-filter_complex", filter_complex])
 
         # Map output video and audio
-        cmd.extend([
-            '-map', '[outv_sub]',
-            '-map', f'{len(self.sections)}:a',  # Audio is the last input
-            '-c:v', 'libx264',
-            '-c:a', 'aac',
-            '-pix_fmt', 'yuv420p',
-            '-shortest',
-            str(self.output_path)
-        ])
+        cmd.extend(
+            [
+                "-map",
+                "[outv_sub]",
+                "-map",
+                f"{len(self.sections)}:a",  # Audio is the last input
+                "-c:v",
+                "libx264",
+                "-c:a",
+                "aac",
+                "-pix_fmt",
+                "yuv420p",
+                "-t",
+                str(self.total_duration),
+                str(self.output_path),
+            ]
+        )
 
         return cmd
 
     def _build_filter_complex(self) -> str:
-        """Build filter_complex string for fades, concatenation, and subtitles."""
+        """Build filter_complex string for fades, keyframes, concatenation, and subtitles."""
         filters = []
         fade_duration = 1.0
+        zoom_factor = 1.1
+        move_range = 50
 
-        # Create fade filters for each image
         for i, section in enumerate(self.sections):
-            if not section.get('image_path'):
+            if not section.get("image_path"):
                 continue
 
-            duration = section['duration']
+            duration = section["duration"]
 
-            # First image: only fade out
             if i == 0:
-                filters.append(
-                    f"[{i}:v]fade=t=out:st={duration - fade_duration}:d={fade_duration}[v{i}]"
-                )
-            # Last image: only fade in
+                if duration > fade_duration:
+                    fade_filter = (
+                        f"fade=t=out:st={duration - fade_duration}:d={fade_duration}"
+                    )
+                else:
+                    fade_filter = "copy"
             elif i == len(self.sections) - 1:
-                filters.append(
-                    f"[{i}:v]fade=t=in:st=0:d={fade_duration}[v{i}]"
-                )
-            # Middle images: fade in and out
+                fade_filter = f"fade=t=in:st=0:d={fade_duration}"
             else:
-                filters.append(
-                    f"[{i}:v]fade=t=in:st=0:d={fade_duration},"
-                    f"fade=t=out:st={duration - fade_duration}:d={fade_duration}[v{i}]"
-                )
+                if duration > 2 * fade_duration:
+                    fade_filter = (
+                        f"fade=t=in:st=0:d={fade_duration},"
+                        f"fade=t=out:st={duration - fade_duration}:d={fade_duration}"
+                    )
+                elif duration > fade_duration:
+                    fade_filter = f"fade=t=in:st=0:d={duration / 2}"
+                else:
+                    fade_filter = "copy"
 
-        # Concatenate all video streams
-        concat_inputs = ''.join(f"[v{i}]" for i in range(len(self.sections)))
-        filters.append(
-            f"{concat_inputs}concat=n={len(self.sections)}:v=1:a=0[outv]"
+            if fade_filter == "copy":
+                filters.append(f"[{i}:v]scale=iw*{zoom_factor}:-2[v{i}]")
+            else:
+                filters.append(f"[{i}:v]scale=iw*{zoom_factor}:-2,{fade_filter}[v{i}]")
+
+        concat_inputs = "".join(f"[v{i}]" for i in range(len(self.sections)))
+        filters.append(f"{concat_inputs}concat=n={len(self.sections)}:v=1:a=0[outv]")
+
+        subtitle_path_escaped = (
+            str(self.subtitle_path).replace("\\", "\\\\").replace(":", "\\:")
         )
-
-        # Add subtitles (escape Windows path backslashes)
-        subtitle_path_escaped = str(self.subtitle_path).replace('\\', '\\\\').replace(':', '\\:')
         filters.append(
             f"[outv]subtitles='{subtitle_path_escaped}':force_style='FontName=Arial,FontSize=24,"
             f"PrimaryColour=&HFFFFFF,OutlineColour=&H000000,BorderStyle=3,Outline=2,Shadow=1,"
             f"MarginV=50'[outv_sub]"
         )
 
-        return ';'.join(filters)
+        return ";".join(filters)
 
     def execute(self):
         """Execute FFmpeg command."""
@@ -119,11 +169,7 @@ class FFmpegWrapper:
 
         try:
             result = subprocess.run(
-                cmd,
-                check=True,
-                capture_output=True,
-                text=True,
-                encoding='utf-8'
+                cmd, check=True, capture_output=True, text=True, encoding="utf-8"
             )
 
             print("Video composition complete!")
@@ -137,10 +183,7 @@ class FFmpegWrapper:
         """Check if FFmpeg is available."""
         try:
             result = subprocess.run(
-                ['ffmpeg', '-version'],
-                capture_output=True,
-                text=True,
-                encoding='utf-8'
+                ["ffmpeg", "-version"], capture_output=True, text=True, encoding="utf-8"
             )
             return result.returncode == 0
         except FileNotFoundError:

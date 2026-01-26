@@ -19,6 +19,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from utils.whisper_processor import WhisperProcessor
 from utils.funasr_processor import FunASRProcessor
+from utils.qwen3_asr_processor import Qwen3ASRProcessor
 
 
 def main():
@@ -38,7 +39,7 @@ def main():
         "--engine",
         type=str,
         default="whisper",
-        choices=["whisper", "funasr"],
+        choices=["whisper", "funasr", "qwen3-asr"],
         help="Transcription engine to use (default: whisper)",
     )
 
@@ -66,6 +67,14 @@ def main():
         help="FunASR model to use (default: fun-asr)",
     )
 
+    parser.add_argument(
+        "--qwen3-asr-model",
+        type=str,
+        default="qwen3-asr-flash",
+        choices=["qwen3-asr-flash", "qwen3-asr-flash-us"],
+        help="Qwen3-ASR model to use (default: qwen3-asr-flash)",
+    )
+
     args = parser.parse_args()
 
     # Check audio source based on engine
@@ -84,6 +93,9 @@ def main():
         if args.engine == "whisper":
             processor = WhisperProcessor(model_name=args.whisper_model)
             transcription = processor.transcribe(args.audio, language=args.language)
+        elif args.engine == "qwen3-asr":
+            processor = Qwen3ASRProcessor(model=args.qwen3_asr_model)
+            transcription = processor.transcribe(args.audio, language="zh")
         else:
             processor = FunASRProcessor(model_id=args.funasr_model)
             transcription = processor.transcribe(args.audio, language="zh")
