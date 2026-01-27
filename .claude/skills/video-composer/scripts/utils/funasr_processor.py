@@ -15,7 +15,6 @@ from dashscope.audio.asr import Transcription
 
 # 初始化 dashscope 配置
 dashscope.api_key = os.getenv("DASHSCOPE_API_KEY")
-dashscope.base_http_api_url = "https://dashscope.aliyuncs.com/api/v1"
 
 
 class FunASRProcessor:

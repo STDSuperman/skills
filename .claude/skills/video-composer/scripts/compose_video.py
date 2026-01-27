@@ -46,27 +46,24 @@ def main():
     parser.add_argument(
         "--transcription-engine",
         type=str,
-        default="whisper",
-        choices=["whisper", "funasr", "qwen3-asr"],
-        help="Transcription engine to use (default: whisper)",
-    )
-
-    # Whisper options
-    parser.add_argument(
-        "--whisper-model",
-        type=str,
-        default="base",
-        choices=["tiny", "base", "small", "medium", "large"],
-        help="Whisper model to use (default: base)",
+        default="funasr",
+        choices=["funasr", "qwen3-asr"],
+        help="Transcription engine to use (default: funasr)",
     )
 
     # FunASR options
     parser.add_argument(
         "--funasr-model",
         type=str,
-        default="paraformer-16k-v1",
-        choices=["paraformer-8k-v1", "paraformer-16k-v1"],
-        help="FunASR model to use (default: paraformer-16k-v1)",
+        default="fun-asr",
+        choices=[
+            "fun-asr",
+            "fun-asr-2025-11-07",
+            "fun-asr-2025-08-25",
+            "fun-asr-mtl",
+            "fun-asr-mtl-2025-08-25",
+        ],
+        help="FunASR model to use (default: fun-asr, stable version equivalent to fun-asr-2025-11-07)",
     )
 
     parser.add_argument(
@@ -138,12 +135,7 @@ def main():
         transcription_path = work_dir / "transcription.json"
 
         try:
-            if args.transcription_engine == "whisper":
-                from utils.whisper_processor import WhisperProcessor
-
-                processor = WhisperProcessor(model_name=args.whisper_model)
-                transcription = processor.transcribe(args.audio, language="zh")
-            elif args.transcription_engine == "qwen3-asr":
+            if args.transcription_engine == "qwen3-asr":
                 from utils.qwen3_asr_processor import Qwen3ASRProcessor
 
                 processor = Qwen3ASRProcessor(model=args.qwen3_asr_model)

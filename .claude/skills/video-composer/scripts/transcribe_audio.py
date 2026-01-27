@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Audio Transcription Script
-Uses OpenAI Whisper or Aliyun FunASR to transcribe audio files with timestamps.
+Uses Aliyun FunASR or Qwen3-ASR to transcribe audio files with timestamps.
 """
 
 import os
@@ -17,14 +17,13 @@ load_dotenv()
 # Add utils to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from utils.whisper_processor import WhisperProcessor
 from utils.funasr_processor import FunASRProcessor
 from utils.qwen3_asr_processor import Qwen3ASRProcessor
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Transcribe audio with Whisper or FunASR"
+        description="Transcribe audio with FunASR or Qwen3-ASR"
     )
     parser.add_argument(
         "--audio",
@@ -38,24 +37,9 @@ def main():
     parser.add_argument(
         "--engine",
         type=str,
-        default="whisper",
-        choices=["whisper", "funasr", "qwen3-asr"],
-        help="Transcription engine to use (default: whisper)",
-    )
-
-    # Whisper options
-    parser.add_argument(
-        "--whisper-model",
-        type=str,
-        default="base",
-        choices=["tiny", "base", "small", "medium", "large"],
-        help="Whisper model to use (default: base)",
-    )
-    parser.add_argument(
-        "--language",
-        type=str,
-        default="zh",
-        help="Language code for Whisper (default: zh for Chinese)",
+        default="funasr",
+        choices=["funasr", "qwen3-asr"],
+        help="Transcription engine to use (default: funasr)",
     )
 
     # FunASR options
@@ -63,8 +47,14 @@ def main():
         "--funasr-model",
         type=str,
         default="fun-asr",
-        choices=["fun-asr", "fun-asr-2025-11-07"],
-        help="FunASR model to use (default: fun-asr)",
+        choices=[
+            "fun-asr",
+            "fun-asr-2025-11-07",
+            "fun-asr-2025-08-25",
+            "fun-asr-mtl",
+            "fun-asr-mtl-2025-08-25",
+        ],
+        help="FunASR model to use (default: fun-asr, stable version equivalent to fun-asr-2025-11-07)",
     )
 
     parser.add_argument(
@@ -78,22 +68,14 @@ def main():
     args = parser.parse_args()
 
     # Check audio source based on engine
-    if args.engine == "whisper":
-        if not Path(args.audio).exists():
-            print(f"Error: Audio file not found: {args.audio}")
-            return 1
-    else:
-        # FunASR uses URL, no file existence check needed
-        if not args.audio.startswith(("http://", "https://")):
-            print(f"Error: FunASR requires a public URL, got: {args.audio}")
-            return 1
+    # Both FunASR and Qwen3-ASR require public URLs
+    if not args.audio.startswith(("http://", "https://")):
+        print(f"Error: {args.engine} requires a public URL, got: {args.audio}")
+        return 1
 
     # Transcribe audio
     try:
-        if args.engine == "whisper":
-            processor = WhisperProcessor(model_name=args.whisper_model)
-            transcription = processor.transcribe(args.audio, language=args.language)
-        elif args.engine == "qwen3-asr":
+        if args.engine == "qwen3-asr":
             processor = Qwen3ASRProcessor(model=args.qwen3_asr_model)
             transcription = processor.transcribe(args.audio, language="zh")
         else:

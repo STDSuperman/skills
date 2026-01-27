@@ -1,6 +1,6 @@
 """
 Lyrics Matcher
-Matches Whisper transcription with original Suno lyrics sections.
+Matches audio transcription with original Suno lyrics sections.
 """
 
 import re
@@ -26,7 +26,7 @@ class LyricsMatcher:
 
         Args:
             lyrics_file: Path to Suno lyrics markdown file
-            transcription: Whisper transcription result
+            transcription: Audio transcription result
             images_dir: Directory containing section images
         """
         self.lyrics_file = lyrics_file
@@ -193,7 +193,7 @@ class LyricsMatcher:
 
         Args:
             clean_lyrics: Cleaned lyrics text to match
-            segments: Whisper transcription segments
+            segments: Audio transcription segments
             start_from: Minimum start time
             max_duration: Maximum duration
 
@@ -204,22 +204,24 @@ class LyricsMatcher:
         best_match_end = None
         best_score = float("inf")
 
-        # Try to find continuous segment range that best matches lyrics
         for i in range(len(segments)):
             if segments[i]["start"] < start_from:
                 continue
 
-            # Try different window sizes
+            if segments[i]["start"] - start_from > 60:
+                continue
+
             for window_size in range(1, min(10, len(segments) - i + 1)):
                 window_segments = segments[i : i + window_size]
                 window_text = "".join(seg["text"] for seg in window_segments)
                 window_clean = self._clean_lyrics(window_text)
 
-                # Calculate similarity score
-                score = levenshtein_distance(clean_lyrics, window_clean)
+                text_score = levenshtein_distance(clean_lyrics, window_clean)
+                time_penalty = (segments[i]["start"] - start_from) * 0.5
+                total_score = text_score + time_penalty
 
-                if score < best_score:
-                    best_score = score
+                if total_score < best_score:
+                    best_score = total_score
                     best_match_start = window_segments[0]["start"]
                     best_match_end = window_segments[-1]["end"]
 
