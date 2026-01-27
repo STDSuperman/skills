@@ -111,18 +111,7 @@ class SubtitleGenerator:
         Returns:
             List of (start_time, end_time) tuples for each sentence
         """
-        if not segments:
-            # No segments - distribute time evenly
-            duration = section_end - section_start
-            sentence_duration = duration / len(sentences) if sentences else 0
-            return [
-                (
-                    section_start + i * sentence_duration,
-                    section_start + (i + 1) * sentence_duration,
-                )
-                for i in range(len(sentences))
-            ]
-
+        # 直接使用 ASR 转录的时间轴，不进行任何手动校准
         # Filter segments within section bounds
         section_segments = [
             seg
@@ -131,97 +120,35 @@ class SubtitleGenerator:
         ]
 
         if not section_segments:
-            duration = section_end - section_start
-            sentence_duration = duration / len(sentences) if sentences else 0
-            return [
-                (
-                    section_start + i * sentence_duration,
-                    section_start + (i + 1) * sentence_duration,
-                )
-                for i in range(len(sentences))
-            ]
-
-        sentence_times = []
-        total_segment_duration = (
-            section_segments[-1]["end"] - section_segments[0]["start"]
-        )
-
-        if total_segment_duration == 0 or len(sentences) == 0:
-            sentence_times.append((section_start, section_end))
-            return sentence_times
+            # No segments - use section time for all sentences
+            return [(section_start, section_end) for _ in sentences]
 
         # Try to match sentences with segments based on text content
         if len(sentences) == len(section_segments):
-            # One-to-one mapping
-            for i, sentence in enumerate(sentences):
-                sentence_times.append(
-                    (section_segments[i]["start"], section_segments[i]["end"])
-                )
-        elif len(section_segments) >= 2:
-            # Distribute based on text length within segment boundaries
-            segment_texts = [seg.get("text", "") for seg in section_segments]
-            all_text = "".join(segment_texts)
-
-            # Use section boundary instead of segment boundary for total time
-            total_time = section_end - section_start
-
-            # Calculate time for each sentence proportionally
-            sentence_times = []
-            cumulative_time = section_start
-
-            for i, sentence in enumerate(sentences):
-                if i == len(sentences) - 1:
-                    # Last sentence: extend to section end
-                    sentence_start = cumulative_time
-                    sentence_end = max(section_end, sentence_start + 0.5)
-                    sentence_times.append((sentence_start, sentence_end))
-                else:
-                    # Calculate how much time this sentence needs based on text length
-                    sentence_chars = len(sentence)
-                    time_needed = (sentence_chars / len(all_text)) * total_time
-
-                    sentence_start = cumulative_time
-                    sentence_end = cumulative_time + time_needed
-
-                    # Ensure minimum duration
-                    if sentence_end - sentence_start < 0.3:
-                        sentence_end = sentence_start + 0.3
-
-                    # Clamp to section end
-                    sentence_end = min(sentence_end, section_end)
-                    sentence_times.append((sentence_start, sentence_end))
-                    cumulative_time = sentence_end
+            # One-to-one mapping: use segment times directly
+            return [
+                (section_segments[i]["start"], section_segments[i]["end"])
+                for i in range(len(sentences))
+            ]
         else:
-            # Fallback: distribute evenly
-            duration = section_end - section_start
-            sentence_duration = duration / len(sentences) if sentences else 0
-            for i in range(len(sentences)):
-                sentence_times.append(
-                    (
-                        section_start + i * sentence_duration,
-                        section_start + (i + 1) * sentence_duration,
-                    )
-                )
+            # Use all segments to cover the section
+            # First segment start, last segment end
+            first_seg = section_segments[0]["start"]
+            last_seg = section_segments[-1]["end"]
 
-        return sentence_times
+            # Distribute sentences evenly within segment time range
+            duration = last_seg - first_seg
+            if len(sentences) == 0:
+                return [(first_seg, last_seg)]
 
-        # Estimate sentence positions based on segment timing
-        for i, sentence in enumerate(sentences):
-            if len(sentences) == 1:
-                sentence_times.append((section_start, section_end))
-            else:
-                # Distribute time proportionally
-                proportion = i / (len(sentences) - 1)
-                sent_start = (
-                    section_segments[0]["start"] + proportion * total_segment_duration
+            sentence_duration = duration / len(sentences)
+            return [
+                (
+                    first_seg + i * sentence_duration,
+                    first_seg + (i + 1) * sentence_duration,
                 )
-                sent_end = (
-                    section_segments[0]["start"]
-                    + ((i + 1) / len(sentences)) * total_segment_duration
-                )
-                sentence_times.append((sent_start, sent_end))
-
-        return sentence_times
+                for i in range(len(sentences))
+            ]
 
     def _format_timestamp(self, seconds: float) -> str:
         """

@@ -176,7 +176,8 @@ class LyricsMatcher:
                 }
             )
 
-            current_time = end_time
+            # 不更新current_time，让下一段从当前end_time开始匹配
+            # 这样可以保留段落后的静音间隙
 
         print("Matching complete")
         return matched_sections
