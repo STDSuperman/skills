@@ -49,7 +49,7 @@ class IllustrationGenerator:
 
             try:
                 self._generate_image(section["prompt"], output_path)
-                print(f"  ✓ Saved: {output_path.name}\n")
+                print(f"  [OK] Saved: {output_path.name}\n")
 
                 results.append(
                     {
@@ -62,7 +62,7 @@ class IllustrationGenerator:
                 )
 
             except Exception as e:
-                print(f"  ✗ Error: {e}\n")
+                print(f"  [ERROR] {e}\n")
                 results.append(
                     {
                         "id": section["id"],
@@ -78,20 +78,24 @@ class IllustrationGenerator:
     def _generate_image(self, prompt: str, output_path: Path):
         """Call image-generator skill to create an image."""
         cmd = [
+            "uv",
+            "run",
             "python",
             str(self.image_generator_script),
             prompt,
             "--style",
             "anime",
+            "--provider",
+            "jiekou",
             "--width",
-            "1024",
+            "2304",
             "--height",
-            "768",
+            "1728",
             "--output",
             str(output_path),
         ]
 
-        result = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
+        result = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="ignore")
 
         if result.returncode != 0:
             raise RuntimeError(f"Image generation failed: {result.stderr}")

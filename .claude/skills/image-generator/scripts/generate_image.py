@@ -101,6 +101,87 @@ class ModelScopeProvider(ImageProvider):
             time.sleep(5)  # Poll every 5 seconds
 
 
+class JiekouProvider(ImageProvider):
+    """Jiekou.ai seedream-4.5 image generation provider"""
+
+    def __init__(self, api_key: str):
+        self.api_key = api_key
+        self.base_url = "https://api.jiekou.ai/v3/seedream-4.5"
+
+    def generate(self, prompt: str, **kwargs) -> bytes:
+        """Generate image using Jiekou API"""
+
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json",
+        }
+
+        payload = {
+            "prompt": prompt,
+            "watermark": kwargs.get("watermark", False),  # 默认关掉水印
+        }
+
+        # Handle size parameter (e.g., "1024x1024")
+        size = kwargs.get("size")
+        if size:
+            payload["size"] = size
+        elif "width" in kwargs and "height" in kwargs:
+            payload["size"] = f"{kwargs['width']}x{kwargs['height']}"
+
+        # Optional: image references
+        if "image" in kwargs:
+            payload["image"] = kwargs["image"]
+
+        # Optional: prompt optimization
+        if "optimize_prompt" in kwargs:
+            payload["optimize_prompt_options"] = {
+                "mode": kwargs["optimize_prompt"]
+            }
+
+        # Optional: sequential generation
+        if "sequential_image_generation" in kwargs:
+            payload["sequential_image_generation"] = kwargs["sequential_image_generation"]
+            if "sequential_image_generation_options" in kwargs:
+                payload["sequential_image_generation_options"] = kwargs["sequential_image_generation_options"]
+
+        response = requests.post(
+            self.base_url,
+            headers=headers,
+            json=payload,
+            timeout=120
+        )
+        if response.status_code != 200:
+            raise Exception(f"API error: {response.status_code} - {response.text}")
+        response.raise_for_status()
+        result = response.json()
+
+        # Check if image data is in response (支持多种格式)
+        image_url = None
+
+        # 格式1: {"images": ["url"]}
+        if "images" in result and len(result["images"]) > 0:
+            image_url = result["images"][0]
+        # 格式2: {"data": [{"url": "..."}]}
+        elif "data" in result and len(result["data"]) > 0:
+            image_url = result["data"][0].get("url")
+            if not image_url:
+                # Try b64_json if url not present
+                b64_data = result["data"][0].get("b64_json")
+                if b64_data:
+                    import base64
+                    return base64.b64decode(b64_data)
+
+        if not image_url:
+            raise Exception(f"No image data in response: {result}")
+
+        print(f"Generation complete! Downloading image...")
+
+        # Download the image
+        img_response = requests.get(image_url)
+        img_response.raise_for_status()
+        return img_response.content
+
+
 # Style templates for different artistic styles
 STYLE_TEMPLATES = {
     "realistic": "{prompt}, photorealistic, highly detailed, 8k uhd, professional photography",
@@ -143,6 +224,11 @@ def get_provider(provider_name: str) -> ImageProvider:
         if not api_key:
             raise ValueError("MODELSCOPE_TOKEN not found in .env file")
         return ModelScopeProvider(api_key)
+    elif provider_name == "jiekou":
+        api_key = os.getenv("JIEKOU_API_KEY")
+        if not api_key:
+            raise ValueError("JIEKOU_API_KEY not found in .env file")
+        return JiekouProvider(api_key)
     else:
         raise ValueError(f"Unknown provider: {provider_name}")
 

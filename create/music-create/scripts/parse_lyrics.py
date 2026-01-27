@@ -107,20 +107,21 @@ class LyricsParser:
         })
 
     def _generate_prompt(self, section_name: str, lyrics: str, occurrence: int) -> str:
-        """Generate anime-style illustration prompt based on section content."""
+        """Generate anime + atmospheric illustration prompt based on section content."""
         base_theme = "地铁站台离别场景"
-        style_tags = "anime style, melancholic atmosphere, emotional scene, cinematic lighting"
+        # 动漫 + 氛围感风格
+        style_tags = "anime style, cinematic atmosphere, moody lighting, emotional scene, melancholic mood, soft shadows, detailed illustration, beautiful artwork"
 
         # Generate contextual prompts based on section and lyrics
         prompts = {
-            'Intro': f"空旷的地铁站台，钢琴琴键特写，月台灯光昏暗，{style_tags}",
-            'Verse 1': f"地铁站台上，一个人的背影渐行渐远，另一个人站在原地，月台灯光昏暗，冷风吹拂，{style_tags}",
-            'Pre-Chorus': f"地铁站台的灯光一盏盏熄灭，孤独的身影站在月台中央，{style_tags}",
-            'Chorus': f"地铁车厢门关闭的瞬间，站台上的人伸手想要挽留但来不及，充满遗憾的画面，{style_tags}" if occurrence == 1
-                     else f"空荡的地铁站台，列车驶向远方，孤独的身影困在原地，说不出再见，{style_tags}",
-            'Verse 2': f"手机屏幕上显示\"晚安\"消息，手指悬停在拨号键上，昏暗的房间，{style_tags}",
-            'Bridge': f"情感爆发的瞬间，想说的话堆积成山，时间的齿轮无情转动，人物痛苦的表情特写，{style_tags}",
-            'Outro': f"新的列车进站，月台灯光重新亮起，但站台上的人知道车上不会有那个人，孤独而平静的画面，{style_tags}"
+            'Intro': f"空旷的地铁站台，钢琴琴键特写，月台灯光昏暗，冷色调，孤独感，{style_tags}",
+            'Verse 1': f"地铁站台上，一个人的背影渐行渐远，另一个人站在原地，月台灯光昏暗，冷风吹拂的瞬间，忧郁氛围，{style_tags}",
+            'Pre-Chorus': f"地铁站台的灯光一盏盏熄灭，孤独的身影站在月台中央，光线逐渐变暗，孤寂感，{style_tags}",
+            'Chorus': f"地铁车厢门关闭的瞬间，站台上的人伸手想要挽留但来不及，充满遗憾的画面，光影对比强烈，{style_tags}" if occurrence == 1
+                     else f"空荡的地铁站台，列车驶向远方，孤独的身影困在原地，说不出再见，长镜头感，{style_tags}",
+            'Verse 2': f"手机屏幕上显示\"晚安\"消息，手指悬停在拨号键上，昏暗的房间，暖冷对比，失落感，{style_tags}",
+            'Bridge': f"情感爆发的瞬间，想说的话堆积成山，时间的齿轮无情转动，人物痛苦的表情特写，戏剧性光影，{style_tags}",
+            'Outro': f"新的列车进站，月台灯光重新亮起，但站台上的人知道车上不会有那个人，孤独而平静的画面，温暖但空虚，{style_tags}"
         }
 
         return prompts.get(section_name, f"{base_theme}，{lyrics[:30]}...，{style_tags}")

@@ -27,12 +27,15 @@ python scripts/generate_image.py "A golden cat" --style anime
 2. Add your API keys:
    ```
    MODELSCOPE_TOKEN=your_token_here
+   JIEKOU_API_KEY=your_jiekou_key_here
+   JIEKOU_ENABLE=true
    ```
 
 ## Supported Providers
 
 Currently supported:
 - **ModelScope** (default): Tongyi-MAI/Z-Image-Turbo model
+- **Jiekou.ai** (即梦 4.5): seedream-4.5 model
 
 For adding new providers, see [references/providers.md](references/providers.md).
 
