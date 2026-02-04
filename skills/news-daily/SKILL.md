@@ -1,6 +1,6 @@
 ---
 name: news-daily
-description: 抓取多平台每日资讯并生成美观的 Markdown 日报，支持 AI、财经、技术等分类
+description: 抓取多平台每日资讯并生成美观的 Markdown 日报，支持 AI、财经、技术等分类。当用户主动询问"今日资讯"、"今日新闻"、"今日热点"、"获取新闻"、"新闻日报"等表达获取资讯意图时触发。
 metadata:
   {
     "openclaw":
@@ -91,6 +91,23 @@ python3 scripts/fetch_news.py
 
 ## 报告生成示例
 
+### 链接格式规范（重要）
+
+- **所有外链必须使用 Markdown 链接格式**：`[显示文本](URL)`
+- **禁止直接输出原始 URL**（如 `https://example.com`）
+- **优先使用新闻标题作为链接文本**
+- **如果标题为空或过短，使用"查看详情"作为链接文本**
+
+```markdown
+✅ 正确格式：
+- [📝 知乎] [OpenAI 发布新模型](https://...)
+- [💰 华尔街见闻] [美股大涨 2%](https://...)
+
+❌ 错误格式：
+- [📝 知乎] OpenAI 发布新模型 https://...
+- [💰 华尔街见闻] 美股大涨 - https://example.com/news
+```
+
 根据抓取的数据和上述分类、过滤规则，生成如下格式的 Markdown 报告：
 
 ```markdown
@@ -128,12 +145,13 @@ python3 scripts/fetch_news.py
 ## 📋 分类资讯详情
 
 ### 🤖 AI (35 条)
-- [📝 知乎] [OpenAI 发布新模型](https://...)
-- [🐙 GitHub] [awesome-ml: 机器学习资源集合](https://...)
+- [📝 知乎] [OpenAI 发布新模型](https://example.com/1)
+- [🐙 GitHub] [awesome-ml: 机器学习资源集合](https://example.com/2)
 ...
 
 ### 💰 财经 (50 条)
-- [💰 华尔街见闻] 美股大涨...
+- [💰 华尔街见闻] [美股大涨 2%，创历史新高](https://example.com/3)
+- [💰 华尔街见闻] [美联储宣布维持利率不变](https://example.com/4)
 ...
 
 ---
