@@ -1,0 +1,99 @@
+{
+  "platforms": {
+    "zhihu": {
+      "name": "知乎",
+      "icon": "📝",
+      "type": "api",
+      "url": "https://www.zhihu.com/api/v3/feed/topstory/hot-list-web",
+      "category": "综合",
+      "enabled": true
+    },
+    "wallstreetcn": {
+      "name": "华尔街见闻",
+      "icon": "💰",
+      "type": "api",
+      "endpoints": {
+        "live": {
+          "name": "快讯",
+          "url": "https://api-one.wallstcn.com/apiv1/content/lives",
+          "params": {
+            "channel": "global-channel",
+            "limit": 30
+          }
+        },
+        "news": {
+          "name": "新闻流",
+          "url": "https://api-one.wallstcn.com/apiv1/content/information-flow",
+          "params": {
+            "channel": "global-channel",
+            "accept": "article",
+            "limit": 30
+          }
+        },
+        "hot": {
+          "name": "热门",
+          "url": "https://api-one.wallstcn.com/apiv1/content/articles/hot",
+          "params": {
+            "period": "all"
+          }
+        }
+      },
+      "category": "财经",
+      "enabled": true
+    },
+    "hupu": {
+      "name": "虎扑",
+      "icon": "⚽",
+      "type": "html",
+      "url": "https://bbs.hupu.com/topic-daily-hot",
+      "category": "体育",
+      "enabled": true
+    },
+    "thepaper": {
+      "name": "澎湃新闻",
+      "icon": "📰",
+      "type": "api",
+      "url": "https://cache.thepaper.cn/contentapi/wwwIndex/rightSidebar",
+      "category": "综合",
+      "enabled": true
+    },
+    "hackernews": {
+      "name": "Hacker News",
+      "icon": "💻",
+      "type": "html",
+      "url": "https://news.ycombinator.com",
+      "category": "技术",
+      "enabled": true
+    },
+    "producthunt": {
+      "name": "Product Hunt",
+      "icon": "🚀",
+      "type": "html",
+      "url": "https://www.producthunt.com",
+      "category": "科技",
+      "enabled": true
+    },
+    "github": {
+      "name": "GitHub",
+      "icon": "🐙",
+      "type": "html",
+      "url": "https://github.com/trending",
+      "category": "技术",
+      "enabled": true
+    },
+    "sspai": {
+      "name": "少数派",
+      "icon": "🎯",
+      "type": "api",
+      "url": "https://sspai.com/api/v1/article/tag/page/get",
+      "params": {
+        "limit": 30,
+        "offset": 0,
+        "tag": "热门文章",
+        "released": false
+      },
+      "category": "技术",
+      "enabled": true
+    }
+  }
+}
