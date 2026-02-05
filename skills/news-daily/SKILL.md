@@ -26,6 +26,57 @@ cd {baseDir}
 python3 scripts/fetch_news.py
 ```
 
+### 2. 发布日报到 GitHub 仓库（可选）
+
+如果需要将日报自动发布到 GitHub 仓库，按照以下步骤配置：
+
+#### 配置环境变量
+
+1. 复制配置模板：
+```bash
+cp .env.example .env
+```
+
+2. 编辑 `.env` 文件，填写必要配置：
+```bash
+# GitHub 仓库 URL（必须）
+GITHUB_REPO_URL=https://github.com/username/repo.git
+
+# 其他配置可选，留空则使用默认值
+# REPO_TYPE=
+# REPO_TARGET_DIR=
+# FILENAME_FORMAT=daily-news-%Y%m%d.md
+```
+
+**重要提示**：
+- 请确保本地已配置好 `git` 用户信息和认证方式（SSH 密钥或 HTTPS Token）
+- 脚本会使用本地 git 配置进行操作，不会要求输入用户名密码
+
+#### 发布日报
+
+使用 `--content` 参数直接传递内容：
+```bash
+python3 scripts/publish_to_repo.py --content "日报内容"
+```
+
+或使用 `--file` 参数读取文件：
+```bash
+python3 scripts/publish_to_repo.py --file daily-report.md
+```
+
+#### 仓库类型支持
+
+| 类型 | 说明 | 目标目录 |
+|------|------|---------|
+| `vuepress` | VuePress 博客 | `docs/` |
+| `generic` | 通用仓库 | 仓库根目录 |
+| `custom` | 自定义目录 | 由 `REPO_TARGET_DIR` 指定 |
+
+**自动检测规则**：
+- 如果配置了 `REPO_TYPE`，直接使用配置值
+- 如果仓库存在 `docs/` 或 `.vuepress/` 目录，自动识别为 `vuepress`
+- 其他情况默认为 `generic`
+
 **输出格式** (JSON)：
 ```json
 {
