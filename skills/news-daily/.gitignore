@@ -4,3 +4,4 @@ data/trends.db
 __pycache__/
 .env
 *.log
+.repo-cache/

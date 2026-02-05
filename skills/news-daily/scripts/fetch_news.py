@@ -168,9 +168,11 @@ class WallStreetCNSource(NewsSource):
                 title = article.get("title", "")
                 if not title:
                     continue
+                uri = article.get("uri", "")
+                url = f"https://wallstreetcn.com{uri}" if uri else ""
                 items.append(NewsItem(
                     title=title,
-                    url=article.get("uri", ""),
+                    url=url,
                     platform=self.platform,
                     platform_icon=self.icon,
                     raw_category=self.category,
@@ -185,9 +187,11 @@ class WallStreetCNSource(NewsSource):
                 title = article.get("title", "")
                 if not title:
                     continue
+                uri = article.get("uri", "")
+                url = f"https://wallstreetcn.com{uri}" if uri else ""
                 items.append(NewsItem(
                     title=title,
-                    url=article.get("uri", ""),
+                    url=url,
                     platform=self.platform,
                     platform_icon=self.icon,
                     raw_category=self.category,
@@ -274,6 +278,13 @@ class HackerNewsSource(NewsSource):
             url = title_cell.get("href", "")
             if not title:
                 continue
+            if url and not url.startswith("http"):
+                if url.startswith("item?id="):
+                    url = f"https://news.ycombinator.com/{url}"
+                elif url.startswith("/"):
+                    url = f"https://news.ycombinator.com{url}"
+                else:
+                    url = ""
             items.append(NewsItem(
                 title=title,
                 url=url,
@@ -366,9 +377,11 @@ class SspaiSource(NewsSource):
                 title = item.get("title", "")
                 if not title:
                     continue
+                article_id = item.get("id", "")
+                url = f"https://sspai.com/post/{article_id}" if article_id else ""
                 items.append(NewsItem(
                     title=title,
-                    url=item.get("id", ""),
+                    url=url,
                     platform=self.platform,
                     platform_icon=self.icon,
                     raw_category=self.category,
