@@ -1,15 +1,16 @@
 # OpenClaw 文档配置大师
 
-自动同步 OpenClaw 官方文档到 NotebookLM 并提供智能查询功能。
+从 GitHub 仓库自动同步 OpenClaw 官方英文文档到 NotebookLM 并提供智能查询功能。
 
 ## 功能特性
 
-- 🔄 自动从 https://docs.openclaw.ai 获取文档列表
-- 🧠 智能检测文档更新（基于 sitemap.xml 的 lastmod 时间）
+- 🔄 从 GitHub 仓库克隆和更新 OpenClaw 文档
+- 📋 解析 docs.json 提取英文文档结构
+- 🧩 智能合并文档（Group ≤5 按 Tab 合并，>5 按 Group 合并）
 - 📤 自动同步文档到 NotebookLM
 - 🔍 通过 NotebookLM 进行智能文档查询
 - 💾 本地缓存，避免重复上传
-- 🔧 自动检测并安装 NotebookLM CLI
+- 🔧 基于内容哈希的增量更新
 
 ## 快速开始
 
@@ -26,71 +27,30 @@ pip install -r requirements.txt
 python scripts/sync_docs.py
 ```
 
-首次运行时，脚本会提示你创建或输入 Notebook ID：
+首次运行时，脚本会：
+1. 提示创建或输入 Notebook ID
+2. 从 GitHub 克隆 openclaw 仓库
+3. 解析并合并英文文档
+4. 上传到 NotebookLM
 
-```bash
-# 创建新的 Notebook
-notebooklm create --title 'OpenClaw Documentation'
-
-# 或列出现有的 Notebooks
-notebooklm list
-```
-
-输入 Notebook ID 后，会自动保存到 `references/config.json`，后续无需再次输入。
-
-### 3. 查询文档
-
-```bash
-python scripts/query_docs.py "如何配置 OpenClaw 的认证？"
-```
+Notebook ID 会自动保存到 `references/config.json`，后续无需再次输入。
 
 ## 使用场景
 
-### 场景 1：定期同步文档
+### 场景 1：更新文档
 
-设置定时任务自动同步文档：
-
-**Linux/Mac (crontab):**
-```bash
-0 */6 * * * cd /path/to/skills/openclaw-docs && python scripts/sync_docs.py
-```
-
-**Windows (Task Scheduler):**
-创建计划任务，每 6 小时运行一次 `sync_docs.py`
-
-### 场景 2：检查文档更新
-
-在同步前快速检查是否有更新：
+直接运行同步脚本，会自动检测并同步变更：
 
 ```bash
-python scripts/check_updates.py
+python scripts/sync_docs.py
 ```
 
-输出示例：
-```
-正在检查 OpenClaw 文档更新...
+脚本会自动：
+- 更新 GitHub 仓库
+- 检测文档变更（基于内容哈希）
+- 只上传变更的文档
 
-============================================================
-文档总数: 45
-已缓存: 40
-新增文档: 3
-更新文档: 2
-上次同步: 2024-03-08T10:30:00Z
-
-新增文档:
-  - https://docs.openclaw.ai/new-feature
-  - https://docs.openclaw.ai/api-v2
-  - https://docs.openclaw.ai/migration-guide
-
-更新文档:
-  - https://docs.openclaw.ai/getting-started
-  - https://docs.openclaw.ai/authentication
-============================================================
-
-💡 运行 sync_docs.py 进行同步
-```
-
-### 场景 3：在 Claude Code 中使用
+### 场景 2：在 Claude Code 中使用
 
 当你在 Claude Code 中询问 OpenClaw 相关问题时，skill 会自动触发：
 
@@ -104,72 +64,124 @@ Claude: [自动使用 openclaw-docs skill 查询文档并回答]
 ```
 openclaw-docs/
 ├── SKILL.md                          # Skill 说明文档
+├── README.md                         # 本文件
 ├── requirements.txt                  # Python 依赖
+├── .gitignore                        # Git 忽略文件
 ├── scripts/
-│   ├── sync_docs.py                 # 文档同步脚本
-│   ├── check_updates.py             # 检查更新脚本
-│   └── query_docs.py                # 文档查询脚本
-└── references/
-    ├── config.json                  # 配置文件（存储 Notebook ID）
-    └── notebooklm_cache.json        # 缓存文件（存储已上传文档）
+│   ├── init_repo.py                 # 仓库管理器
+│   ├── parse_docs.py                # 文档解析器
+│   ├── merge_docs.py                # 文档合并器
+│   └── sync_docs.py                 # 同步管理器
+├── references/
+│   ├── config.json                  # 配置文件
+│   ├── merge_cache.json             # 合并缓存
+│   ├── sync_cache.json              # 同步缓存
+│   └── DOCS_JSON_STRUCTURE.md       # docs.json 结构说明
+└── repo/                            # 克隆的仓库（被 .gitignore 忽略）
 ```
 
 ## 配置文件说明
 
 ### references/config.json
 
-存储 NotebookLM Notebook ID：
+存储 Notebook ID 和仓库配置：
 
 ```json
 {
-  "notebook_id": "your-notebook-id-here"
+  "notebook_id": "your-notebook-id-here",
+  "repo_url": "https://github.com/openclaw/openclaw",
+  "repo_path": "repo/openclaw",
+  "last_commit": "abc123...",
+  "group_threshold": 5
 }
 ```
 
-### references/notebooklm_cache.json
+### references/merge_cache.json
 
-缓存已上传文档的元数据：
+缓存合并文档的元数据：
 
 ```json
 {
-  "documents": {
-    "https://docs.openclaw.ai/page1": {
-      "lastmod": "2024-03-08T10:00:00Z",
-      "uploaded_at": "2024-03-08T10:30:00Z"
+  "merged_docs": {
+    "Get_started.md": {
+      "merge_type": "tab",
+      "source_files": ["docs/index.mdx"],
+      "content_hash": "abc123...",
+      "last_updated": "2024-03-08T10:00:00"
     }
   },
-  "last_sync": "2024-03-08T10:30:00Z"
+  "last_merge": "2024-03-08T10:00:00"
+}
+```
+
+### references/sync_cache.json
+
+缓存同步状态：
+
+```json
+{
+  "synced_docs": {
+    "Get_started.md": {
+      "content_hash": "abc123...",
+      "last_synced": "2024-03-08T10:30:00"
+    }
+  },
+  "last_sync": "2024-03-08T10:30:00"
 }
 ```
 
 ## 工作原理
 
-1. **获取文档列表**：从 https://docs.openclaw.ai/sitemap.xml 解析所有文档 URL
-2. **检查更新**：对比 sitemap 中的 `lastmod` 时间与本地缓存
-3. **增量同步**：只上传新增或更新的文档到 NotebookLM
-4. **更新缓存**：记录上传时间和文档元数据
-5. **智能查询**：通过 NotebookLM CLI 查询文档内容
+### 架构流程
+
+```
+GitHub (openclaw/openclaw)
+    ↓ clone/pull (depth=1)
+本地仓库 (repo/openclaw/)
+    ↓ parse docs.json
+英文文档结构
+    ↓ 智能合并策略
+合并文档 (*.md)
+    ↓ 内容哈希检测
+变更文档列表
+    ↓ sync
+NotebookLM
+```
+
+### 智能合并策略
+
+- **Tab 合并**：Group 数量 ≤5 时，整个 Tab 合并为一个文件
+- **Group 合并**：Group 数量 >5 时，每个 Group 单独合并
+- **优势**：减少文档数量，提高查询效率
+
+### 增量更新机制
+
+1. 计算每个合并文档的 SHA256 哈希
+2. 对比 sync_cache.json 中的哈希值
+3. 只上传哈希值变更的文档
+4. 删除不再存在的文档
 
 ## 注意事项
 
 1. **Notebook ID 管理**：建议创建专门的 Notebook 用于 OpenClaw 文档
-2. **网络要求**：需要能够访问 https://docs.openclaw.ai
+2. **网络要求**：需要能够访问 GitHub
 3. **CLI 依赖**：确保 `notebooklm` CLI 可以正常使用
 4. **增量更新**：脚本会自动识别新增和更新的文档，避免重复上传
+5. **仓库目录**：repo/ 目录已被 .gitignore 忽略
 
 ## 故障排除
 
 ### NotebookLM CLI 未安装
 
-脚本会自动检测并安装，如果失败可以手动安装：
+脚本会自动检测，如果未安装会提示：
 
 ```bash
 pip install notebooklm-py
 ```
 
-### 无法访问 sitemap.xml
+### 无法访问 GitHub
 
-检查网络连接，确保可以访问 https://docs.openclaw.ai/sitemap.xml
+检查网络连接，确保可以访问 https://github.com/openclaw/openclaw
 
 ### Notebook ID 丢失
 
@@ -180,14 +192,17 @@ pip install notebooklm-py
 ### 测试脚本
 
 ```bash
-# 测试同步脚本
+# 测试仓库管理
+python scripts/init_repo.py
+
+# 测试文档解析
+python scripts/parse_docs.py
+
+# 测试文档合并
+python scripts/merge_docs.py
+
+# 测试完整同步
 python scripts/sync_docs.py
-
-# 测试检查更新
-python scripts/check_updates.py
-
-# 测试查询功能
-python scripts/query_docs.py "test query"
 ```
 
 ## License
