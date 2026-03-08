@@ -1,28 +1,12 @@
-# 克隆的 GitHub 仓库目录
+# 克隆的仓库目录
 repo/
 
-# Python 缓存
+# Python
 *.pyc
 __pycache__/
-*.pyo
-*.pyd
-.Python
-
-# 虚拟环境
-venv/
-env/
-ENV/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
+*.py[cod]
+*$py.class
 
 # 系统文件
 .DS_Store
 Thumbs.db
-
-# 日志文件
-*.log
