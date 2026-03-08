@@ -1,2 +1,2 @@
-requests>=2.31.0
-notebooklm-py
+gitpython>=3.1.0
+notebooklm-py>=0.1.0
