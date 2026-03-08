@@ -5,7 +5,9 @@
       "Bash(python:*)",
       "Bash(set PYTHONIOENCODING=utf-8)",
       "Bash(tar:*)",
-      "Bash(dir /s /b)"
+      "Bash(dir /s /b)",
+      "Bash(git add -A)",
+      "Bash(git commit -m \"chore: 清理 openclaw-docs 旧文件:*)"
     ]
   }
 }
