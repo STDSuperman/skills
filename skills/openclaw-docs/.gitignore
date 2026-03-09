@@ -1,6 +1,12 @@
 # 克隆的仓库目录
 repo/
 
+# 合并后的文档输出目录
+merged/
+
+# 缓存文件目录
+cache/
+
 # Python
 *.pyc
 __pycache__/

@@ -38,10 +38,10 @@ def parse_docs_json(docs_json_path: str) -> Dict[str, Dict]:
 
     # 遍历语言配置
     for lang in config.get('navigation', {}).get('languages', []):
-        locale = lang.get('locale', 'en')
+        language = lang.get('language', '')
 
         # 只处理英文
-        if locale != 'en':
+        if language != 'en':
             continue
 
         # 遍历 tabs
