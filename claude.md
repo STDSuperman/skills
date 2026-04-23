@@ -55,10 +55,6 @@ python scripts/<main-script>.py      # 运行主脚本
 - **依赖安装**: `uv pip install -r requirements.txt`
 - **Python 版本**: 3.8+
 
-## MCP Configuration
-
-项目使用 `opencode.json` 配置 MCP 服务器（web-search-prime、web-reader）。修改配置直接编辑该文件。
-
 ## Conventions
 
 - **回复风格**: 简体中文，称呼用户为"先森"（项目级约束）
