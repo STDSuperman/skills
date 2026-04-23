@@ -4,38 +4,26 @@
 
 ## Commands
 
-- `uv pip install -r requirements.txt` — 安装某个 skill 的依赖（在 skill 目录下运行）
-- `python scripts/<script>.py` — 运行某个 skill 的脚本（在 skill 目录下运行）
-- `git pull` — 同步远程更新
-- `git add -A && git commit -m "<message>"` — 提交所有变更
+- **依赖管理**: `uv pip install -r requirements.txt`(在 skill 目录下,禁止 pip)
+- **软链接创建**: `cd .claude/skills/ && ln -s ../../skills/<skill-name> <skill-name>`(相对路径,在 .claude/skills/ 目录下执行)
+- **软链接验证**: `ls -la .claude/skills/` 确认指向正确
 
 ## Architecture
 
-```
-skills/
-  ├── <skill-name>/          — 每个 skill 是独立子项目
-  │   ├── SKILL.md           — skill 定义文件（必须）
-  │   ├── scripts/           — Python 脚本目录
-  │   ├── references/        — 参考文档、配置文件
-  │   ├── requirements.txt   — Python 依赖
-  │   └── .env.example       — 环境变量示例（如有）
-  ├── docs/                  — 项目级文档（规划、测试指南等）
-  └── .claude/               — Claude Code 配置
-      ├── settings.json      — 全局权限配置
-      └── skills/            — 软链接到实际 skills（可选）
-```
+**核心架构决策**:
+- **软链接机制**: `.claude/skills/` 软链接指向 `skills/<skill-name>/`,**必须在 .claude/skills/ 目录下执行创建**,使用相对路径 `../../skills/<skill-name>`
+- **Skill 唯一源头**: `skills/` 目录是唯一 skill 定义源,禁止修改 `.claude/skills/` 下的软链接内容
+- **全局污染禁令**: 未经允许禁止在 `~/.claude/` 等全局目录创建文件
 
-**软链接机制**: 如果需要 `.claude/skills/` 目录识别，可在该目录创建软链接指向 `skills/<skill-name>/`，但禁止未经允许在全局目录创建文件。
+详细目录结构见 `@docs/architecture.md`。
 
 ## Skill Management
 
 ### 创建新 Skill
 
-1. 在 `skills/` 下创建新目录：`mkdir skills/<new-skill>`
-2. 创建 `SKILL.md`（必须，定义 skill 名称、触发条件、内容）
-3. 创建 `scripts/` 目录，编写 Python 脚本
-4. 创建 `requirements.txt`，列出依赖
-5. 如需参考文档，创建 `references/` 目录
+1. `mkdir skills/<new-skill>` — 创建目录
+2. 创建 `SKILL.md`（必须）— 定义名称、触发条件、内容
+3. 创建 `scripts/` 和 `requirements.txt` — 编写脚本和依赖
 
 ### 修改存量 Skill
 
@@ -43,10 +31,11 @@ skills/
 
 ### 测试 Skill
 
+每个 skill 的测试方式不同，查看 `skills/<skill-name>/SKILL.md` 了解具体用法。通用流程：
 ```bash
 cd skills/<skill-name>
-uv pip install -r requirements.txt  # 安装依赖
-python scripts/<main-script>.py      # 运行主脚本
+uv pip install -r requirements.txt  # 安装依赖（如有）
+# 运行脚本参考该 skill 的 SKILL.md
 ```
 
 ## Python Standards
@@ -57,17 +46,18 @@ python scripts/<main-script>.py      # 运行主脚本
 
 ## Conventions
 
-- **回复风格**: 简体中文，称呼用户为"先森"（项目级约束）
-- **Skill 唯一源头**: `skills/` 目录是唯一的 skill 来源
-- **禁止全局污染**: 未经允许禁止在 `~/.claude/` 等全局目录创建文件
+- **回复风格**: 简体中文,称呼用户为"先森"(项目级约束)
 
 ## Gotchas
 
-- **不要用 pip**: 必须用 `uv pip install`，直接 pip 会破坏依赖管理
-- **软链接陷阱**: 创建软链接时路径必须正确，否则 skill 无法加载
-- **.env 文件**: 每个 skill 的 `.env` 文件不要提交 Git（已在 `.gitignore`）
+- **不要用 pip**: 必须用 `uv pip install`,直接 pip 会破坏依赖管理
+- **软链接陷阱**: 创建软链接时路径必须正确,否则 skill 无法加载
+- **依赖位置不一致**: 部分 skill 在根目录,部分在 scripts/ 下,查看该 skill 的 SKILL.md 确认
+- **Skill 使用**: 每个 skill 使用方式不同,查看 `skills/<skill-name>/SKILL.md`
 
 ## Verification
 
 - Skills 可运行：进入 skill 目录，安装依赖并运行主脚本
 - 依赖正确：`uv pip install -r requirements.txt` 无错误
+- 软链接正确：`ls -la .claude/skills/` 检查链接指向
+- Skill 已识别：运行 Claude Code，输入 `/<skill-name>` 验证加载
